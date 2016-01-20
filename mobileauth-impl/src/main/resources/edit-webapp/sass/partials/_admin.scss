@@ -1,0 +1,171 @@
+#header-content .role-selection {
+
+	a {
+		&:hover, &:focus {
+			background: darken($color-bright-azure, 10%);
+		}
+	}
+	.current { 
+		span {
+			background: $color-bright-azure;
+		}
+	
+		&:after {
+			border-top: 8px solid $color-bright-azure;
+		}
+	}
+}
+
+#site-options .language-selection .selected span {
+	border-color: $color-bright-azure;
+}
+
+#header-content .header-actions li a {
+	&:hover, &:focus {
+		background: darken($color-bright-azure, 10%);
+		
+		 .icon-sign-in {
+			background: darken($color-bright-azure, 10%);
+		}
+	}
+		.icon-sign-in {
+			background: $color-bright-azure;
+		}
+}
+
+#header-content.header-sticky, #header-content.header-sticky .top-row {
+	position: static;
+}
+
+#header-content {
+
+	
+	
+	.header-actions {
+			margin-left: 0!important;
+		li {
+			padding-left: 0;
+			margin-left: -22px;
+
+		}
+		li.logged-in 
+	
+			a {
+				background: none;
+				color: #000!important;
+				@media (min-width: $breakpoint-3) {
+					background: $color-bright-azure;
+					color: #fff!important;
+				}		
+				.icon {
+					background: transparent;
+					
+					@media (min-width: $breakpoint-3) {
+						background: $color-bright-azure;
+					}	
+					
+				}
+			
+					&:hover, &:focus {
+					background: none;
+					
+					.icon {
+						background: transparent;
+					
+					@media (min-width: $breakpoint-3) {
+						background: darken($color-bright-azure, 10%);
+					}	
+					
+					}
+					
+					@media (min-width: $breakpoint-3) {
+						background: darken($color-bright-azure, 10%);
+					}	
+				}
+			}
+
+}
+#main-menu {
+	background: lighten($color-gray-8, 8%);
+	margin-left: 0;
+	margin-right: 0;
+	@media (min-width: $breakpoint-3) {
+			margin-left: -100%;
+			margin-right: -100%;
+		}
+	
+	.sub-navigation {
+		margin-left: -15px;
+		margin-right: -15px;
+		@media (min-width: $breakpoint-3) {
+				margin-left: -25px;
+		}
+		
+		
+		li {
+			display: block;
+			border-bottom: 1px solid $color-gray-7;
+			
+			@media (min-width: $breakpoint-3) {
+				display: inline-block;
+				border: 0;
+				}
+		
+				span {
+				@include rem(padding, 10px 15px);
+				@include rem(font-size, 18px);
+				display: block;
+				text-decoration: none;
+				
+				@media (min-width: $breakpoint-3) {
+					@include rem(font-size, 16px);
+					display: inline-block;
+					
+					}
+			}
+			
+			
+			a {
+				@include rem(padding, 10px 15px);
+				@include rem(font-size, 18px);
+				display: block;
+				color: #000;
+				text-decoration: none;
+				
+				@media (min-width: $breakpoint-3) {
+					@include rem(font-size, 16px);
+					display: inline-block;
+				}
+		
+		
+				&:hover {
+					text-decoration: underline;
+					background: lighten($color-gray-8, 6%);
+					@media (min-width: $breakpoint-3) {
+						background: none;
+					}
+				}
+			}
+			span {
+			
+				color: $color-persimmon;
+			
+			}
+		}
+	
+	}
+}
+}
+.form-label small, h1 small, h2 small, h3 small, h4 small {
+    color: $color-bright-azure-dark;
+	}
+	
+
+.top-list li > span:first-child { 
+	background: $color-bright-azure;
+	}
+
+.default-icon {
+	fill: $color-bright-azure;
+}
+

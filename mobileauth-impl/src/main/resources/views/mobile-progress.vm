@@ -1,0 +1,8 @@
+#set ($processState = $authenticationContext.getSubcontext('fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext').getProcessState())
+#set ($link = $flowExecutionUrl + "&_eventId=" + $processState)
+{
+  "status": {
+    "state": "$processState",
+    "link": "$link"
+  }
+}

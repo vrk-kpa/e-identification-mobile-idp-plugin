@@ -1,0 +1,245 @@
+
+/** Perus fonttityylit **/
+
+html.text-size-3,
+html {
+	font-family: SourceSansProRegular, "Helvetica Neue", Arial, helvetica, sans-serif, clean;
+	line-height: 1.5;
+	color: $color-basic-text;
+	-webkit-font-smoothing: antialiased;
+}
+
+  body {
+    line-height: 1.5;
+	@include rem(font-size, 18px)
+  }
+
+html.text-size-1 {
+	@include rem(font-size, $base-font-size - 4px)
+}
+
+html.text-size-2 {
+	@include rem(font-size, $base-font-size - 2px)
+}
+
+html.text-size-4 {
+	@include rem(font-size, $base-font-size + 2px)
+}
+
+html.text-size-5 {
+	@include rem(font-size, $base-font-size + 6px)
+}
+
+.text {
+	max-width: 45em;
+}
+
+.centered .text,
+.text.text-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+a {
+	color: $link-color;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: $color-bright-azure;
+	text-decoration: none;
+}
+
+#main a:not(.button):focus {
+	background: $color-bright-azure-lightest;
+	color: $color-bright-azure-dark;
+}
+
+a:visited {
+	color: $color-deep-orchid-dark;
+}
+
+/** Otsikot **/
+
+.visual-h1,
+.visual-h2,
+.visual-h3,
+.visual-h4,
+.visual-h3,
+.visual-h4,
+.heading,
+h1,h2,h3,h4,h5,h6{
+	font-family: RobotoBold, Arial, helvetica, sans-serif, clean;
+	font-weight: 400;
+	@include rem(line-height, 1.2em);
+	@include rem(margin-bottom, 0.45454545em);
+	@include rem(margin-top, 1em);
+	color: $color-gray-1;
+	font-variant: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-variant-ligatures: none;
+	&.capital-heading {
+		text-transform: uppercase;
+		font-family: RobotoBold, Arial, helvetica, sans-serif, clean;
+		line-height: 1;
+	}
+}
+
+.visual-h1,
+h1 {
+	font-family: RobotoBlack, Arial, helvetica, sans-serif, clean;
+	@include rem(font-size, 30px);
+	@include rem(margin-top, 0.45454545em);
+	@include rem(margin-bottom, 1em);
+	line-height: 80%;
+	@media (min-width: $breakpoint-3) {
+		@include rem(font-size, 40px);
+	}
+}
+
+.visual-h2,
+h2 {
+	@include rem(font-size, 24px);
+	@media (min-width: $breakpoint-3) {
+		& {
+			@include rem(font-size, 32px);
+		}
+	}
+}
+
+.number-big {
+	@extend .heading;
+	@extend .text-big;
+}
+
+.visual-h3,
+.bordered-lead,
+.lead,
+h3 {
+	@include rem(font-size, 20px);
+}
+
+.visual-h4,
+h4 {
+	@include rem(font-size, 18px);
+}
+
+.text-plus-1 {
+	@include rem(font-size, 110%);
+}
+
+.text-plus-2 {
+	@include rem(font-size, 120%);
+}
+
+.text-plus-3 {
+	@include rem(font-size, 130%);
+}
+
+.text-plus-4 {
+	@include rem(font-size, 140%);
+}
+
+.text-plus-5 {
+	@include rem(font-size, 150%);
+}
+
+.text-big {
+	@include rem(font-size, 200%);
+}
+
+.visual-h5,
+h5 {
+	@include rem(font-size, 16px);
+}
+
+.text-small {
+	@include rem(font-size, 16px);
+}
+
+.visual-h6,
+.text-smaller,
+h6 {
+	@include rem(font-size, 14px);
+}
+
+.text-light {
+	color: $color-gray-4;
+}
+
+h1 + .time-stamp {
+	display: block;
+    margin-top: -2em;
+}
+
+.form-label small,
+.visual-h1 small,
+.visual-h2 small,
+.visual-h3 small,
+.visual-h4 small,
+h1 small,
+h2 small,
+h3 small,
+h4 small {
+	font-size: 66.6666%;
+	font-weight: normal;
+	color: $themecolor;
+	font-family: RobotoMedium, Arial, helvetica, sans-serif, clean;
+}
+
+.visual-h1 small,
+h1 small {
+	font-size: 45%;
+}
+
+.visual-h3 small,
+.visual-h4 small,
+h3 small,
+h4 small {
+	font-size: 80%;
+}
+
+p {
+	margin: 0.2em 0 0.8em 0;
+}
+
+.bold,
+.strong {
+	font-weight: 600;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.text-centered {
+	text-align: center;
+}
+
+.indent {
+	border-left: 4px solid $color-gray-8;
+	padding: 0.5em 1em;
+}
+
+.bulleted-list,
+.numbered-list {
+	list-style-position: inside;
+	margin-top: 0.45454545em;
+	margin-bottom: 1em;
+}
+
+.bulleted-list li,
+.numbered-list li {
+	margin-bottom: 0.2em;
+}
+
+.bulleted-list{
+	list-style-type: disc;
+}
+
+.numbered-list{
+	list-style-type: decimal;
+}
+

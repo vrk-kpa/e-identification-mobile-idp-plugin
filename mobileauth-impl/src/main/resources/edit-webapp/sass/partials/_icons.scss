@@ -1,0 +1,129 @@
+$chevron-circle-up:	"\f139";
+$chevron-circle-down: "\f13a";
+$chevron-up: "\f077";
+$chevron-down: "\f078";
+$angle-left: "\f104";
+$angle-right: "\f105";
+$angle-up: "\f106";
+$angle-down: "\f107";
+$plus-circle: "\f055";
+$minus-circle: "\f056";
+$plus: "\f067";
+$minus: "\f068";
+$icon-info:	"\f129";
+$icon-menu:	"\f0c9";
+$icon-lock: "\f023";
+$icon-home: "\f015";
+$icon-check: "\f00c";
+$icon-search: "\f002";
+$icon-ext-link: "\f08e";
+$icon-tags: "\f02c";
+$icon-tag: "\e085";
+$icon-cross: "\e117";
+$icon-books: "\e61e";
+$icon-profile: "\e620";
+$icon-box: "\e079";
+$icon-package: "\f0c4";
+$icon-sign-in: "\f090";
+$icon-sign-out: "\f08b";
+$icon-env: "\f0e0";
+$icon-heart: "\e024";
+$icon-bookmark: "\f07b";
+
+.icon {
+	@include inline-block;
+	/* smoother for Chrome */
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.icon:before {
+  @extend .charet;
+  @include inline-block;
+  background-color: transparent;
+}
+
+button.icon {
+	background: transparent;
+}
+
+/*********/
+
+.icon-info{
+	&:before{
+		content: $icon-info;
+	}
+}
+
+.icon-lock{
+	&:before{
+		content: $icon-lock;
+	}
+}
+
+.icon-home{
+	&:before{
+		content: $icon-home;
+	}
+}
+
+.icon-search{
+	&:before{
+		content: $icon-search;
+	}
+}
+
+.icon-menu{
+	&:before{
+		content: $icon-menu;
+	}
+}
+
+.icon-guides{
+	&:before{
+		content: $icon-books;
+	}
+}
+
+.icon-my-page{
+	&:before{
+		content: $icon-profile;
+	}
+}
+
+.icon-services{
+	&:before{
+		content: $icon-package;
+	}
+}
+
+.icon-sign-in{
+	&:before{
+		content: $icon-sign-in;
+	}
+}
+
+
+.icon-sign-out{
+	&:before{
+		content: $icon-sign-out;
+	}
+}
+
+.icon-msg{
+	&:before{
+		content: $icon-env;
+	}
+}
+
+.icon-fav{
+	&:before{
+		content: $icon-heart;
+	}
+}
+
+
+

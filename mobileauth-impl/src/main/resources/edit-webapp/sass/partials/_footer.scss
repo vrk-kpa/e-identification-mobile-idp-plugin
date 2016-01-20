@@ -1,0 +1,41 @@
+
+#page-footer{
+  background: $color-dark-gray;
+  color: $color-gray-7;
+  @include rem(font-size, 12px);
+  margin-top: 30px;
+  > .container {
+    padding: 20px 20px 0 20px;
+  }
+  #footer-logo {
+    margin-bottom: 20px;
+  }
+  ul {
+    list-style: none;
+    li {
+      @include rem(font-size, 13px);
+      color: $color-gray-7;
+      margin-right: 4px;
+      margin-bottom: 4px;
+	  a {
+		text-decoration: none;
+	  }
+    }
+  }
+  a{
+	color: $color-gray-9;
+	
+	&:hover,&:focus {
+		color: $color-gray-7;
+		text-decoration: underline;
+	}
+  }
+}
+
+@media (min-width: $breakpoint-5) {
+	#page-footer {
+		li {
+			float: left;
+		}
+	}
+}

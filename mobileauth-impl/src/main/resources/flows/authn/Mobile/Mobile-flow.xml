@@ -1,0 +1,121 @@
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+	parent="authn.abstract, authn/conditions">
+
+	<!-- This is a login flow for mobile certificate authentication -->
+
+	<action-state id="SetRPUIInformation">
+		<evaluate expression="SetRPUIInformation" />
+		<evaluate expression="'proceed'" />
+
+		<transition on="proceed" to="DisplayPhoneNumberSpamCode" />
+	</action-state>
+
+	<view-state id="DisplayPhoneNumberSpamCode" view="mobile">
+		<on-render>
+			<evaluate expression="environment" result="viewScope.environment" />
+			<evaluate expression="opensamlProfileRequestContext" result="viewScope.profileRequestContext" />
+			<evaluate expression="opensamlProfileRequestContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationContext))"
+				result="viewScope.authenticationContext" />
+			<evaluate
+				expression="authenticationContext.getPotentialFlows().values().?[id matches 'authn/(' + (flowRequestContext.getActiveFlow().getApplicationContext().containsBean('shibboleth.authn.Password.ExtendedFlows') ? flowRequestContext.getActiveFlow().getApplicationContext().getBean('shibboleth.authn.Password.ExtendedFlows').trim() : '') + ')']"
+				result="viewScope.extendedAuthenticationFlows" />
+			<evaluate
+				expression="flowRequestContext.getActiveFlow().getApplicationContext().containsBean('shibboleth.authn.Password.PrincipalOverride') ? flowRequestContext.getActiveFlow().getApplicationContext().getBean('shibboleth.authn.Password.PrincipalOverride') : null"
+				result="viewScope.passwordPrincipals" />
+			<evaluate expression="authenticationContext.getSubcontext(T(net.shibboleth.idp.ui.context.RelyingPartyUIContext))"
+				result="viewScope.rpUIContext" />
+			<evaluate expression="authenticationContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationErrorContext))"
+				result="viewScope.authenticationErrorContext" />
+			<evaluate expression="authenticationContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationWarningContext))"
+				result="viewScope.authenticationWarningContext" />
+			<evaluate expression="authenticationContext.getSubcontext(T(net.shibboleth.idp.authn.context.LDAPResponseContext))"
+				result="viewScope.ldapResponseContext" />
+			<evaluate expression="T(net.shibboleth.utilities.java.support.codec.HTMLEncoder)" result="viewScope.encoder" />
+			<evaluate expression="flowRequestContext.getExternalContext().getNativeRequest()" result="viewScope.request" />
+			<evaluate expression="flowRequestContext.getExternalContext().getNativeResponse()" result="viewScope.response" />
+			<evaluate
+				expression="flowRequestContext.getActiveFlow().getApplicationContext().containsBean('shibboleth.CustomViewContext') ? flowRequestContext.getActiveFlow().getApplicationContext().getBean('shibboleth.CustomViewContext') : null"
+				result="viewScope.custom" />
+		</on-render>
+
+		<transition on="proceed" to="ExtractMobileSpamFromForm">
+		</transition>
+
+		<on-exit>
+			<evaluate
+				expression="opensamlProfileRequestContext.addSubcontext(new net.shibboleth.idp.consent.context.ConsentManagementContext(), true).setRevokeConsent(requestParameters._shib_idp_revokeConsent == 'true')" />
+		</on-exit>
+	</view-state>
+
+	<action-state id="ExtractMobileSpamFromForm">
+		<evaluate expression="ExtractMobileSpamFromForm" />
+		<evaluate expression="'proceed'" />
+		<transition on="InvalidCredentials" to="DisplayPhoneNumberSpamCode" />
+		<transition on="proceed" to="AuthenticateMobile" />
+	</action-state>
+
+	<action-state id="AuthenticateMobile">
+		<evaluate expression="AuthenticateMobile" />
+		<evaluate expression="'proceed'" />
+		<transition on="proceed" to="ReturnToView" />
+	</action-state>
+
+	<view-state id="ReturnToView" view="mobile">
+		<on-render>
+			<evaluate expression="environment" result="viewScope.environment" />
+			<evaluate expression="opensamlProfileRequestContext" result="viewScope.profileRequestContext" />
+			<evaluate expression="opensamlProfileRequestContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationContext))"
+				result="viewScope.authenticationContext" />
+			<evaluate expression="authenticationContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationErrorContext))"
+				result="viewScope.authenticationErrorContext" />
+			<evaluate expression="authenticationContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationWarningContext))"
+				result="viewScope.authenticationWarningContext" />
+			<evaluate expression="authenticationContext.getSubcontext(T(fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext))"
+				result="viewScope.mobileResponseContext" />
+			<evaluate expression="T(net.shibboleth.utilities.java.support.codec.HTMLEncoder)" result="viewScope.encoder" />
+			<evaluate expression="flowRequestContext.getExternalContext().getNativeRequest()" result="viewScope.request" />
+			<evaluate expression="flowRequestContext.getExternalContext().getNativeResponse()" result="viewScope.response" />
+		</on-render>
+		<transition on="proceed" to="ValidateMobileAuthentication" />
+		<transition on="retry" to="ProgressView" />
+	</view-state>
+
+	<action-state id="ResolveAuthenticationStatus">
+		<evaluate expression="ResolveAuthenticationStatus" />
+		<evaluate expression="'proceed'" />
+		<transition on="proceed" to="ProgressView" />
+	</action-state>
+
+	<view-state id="ProgressView" view="mobile-progress">
+		<on-render>
+			<evaluate expression="environment" result="viewScope.environment" />
+			<evaluate expression="opensamlProfileRequestContext" result="viewScope.profileRequestContext" />
+			<evaluate expression="opensamlProfileRequestContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationContext))"
+				result="viewScope.authenticationContext" />
+			<evaluate expression="authenticationContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationErrorContext))"
+				result="viewScope.authenticationErrorContext" />
+			<evaluate expression="authenticationContext.getSubcontext(T(net.shibboleth.idp.authn.context.AuthenticationWarningContext))"
+				result="viewScope.authenticationWarningContext" />
+			<evaluate expression="authenticationContext.getSubcontext(T(fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext))"
+				result="viewScope.mobileResponseContext" />
+			<evaluate expression="T(net.shibboleth.utilities.java.support.codec.HTMLEncoder)" result="viewScope.encoder" />
+			<evaluate expression="flowRequestContext.getExternalContext().getNativeRequest()" result="viewScope.request" />
+			<evaluate expression="flowRequestContext.getExternalContext().getNativeResponse()" result="viewScope.response" />
+		</on-render>
+		<transition on="IN_PROCESS" to="ResolveAuthenticationStatus" />
+		<transition on="ERROR" to="ValidateMobileAuthentication" />
+		<transition on="COMPLETE" to="ValidateMobileAuthentication" />
+		<transition on="proceed" to="ValidateMobileAuthentication" />
+
+	</view-state>
+
+	<action-state id="ValidateMobileAuthentication">
+		<evaluate expression="ValidateMobileAuthentication" />
+		<evaluate expression="'proceed'" />
+		<transition on="proceed" to="proceed" />
+	</action-state>
+
+	<bean-import resource="../../../conf/authn/mobile-authn-beans.xml" />
+
+</flow>

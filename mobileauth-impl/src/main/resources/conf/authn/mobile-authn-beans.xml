@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+
+	default-init-method="initialize" default-destroy-method="destroy">
+
+
+	<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer" p:placeholderPrefix="%{"
+		p:placeholderSuffix="}" />
+
+	<bean class="net.shibboleth.idp.profile.impl.ProfileActionBeanPostProcessor" />
+	<bean class="net.shibboleth.ext.spring.config.IdentifiableBeanPostProcessor" />
+
+	<import resource="mobile-authn-config.xml" />
+
+	<bean id="SetRPUIInformation" class="net.shibboleth.idp.ui.impl.SetRPUIInformation" scope="prototype"
+		p:httpServletRequest-ref="shibboleth.HttpServletRequest">
+		<property name="fallbackLanguages">
+			<bean parent="shibboleth.CommaDelimStringArray" c:_0="#{'%{idp.ui.fallbackLanguages:}'.trim()}" />
+		</property>
+	</bean>
+
+	<bean id="ExtractMobileSpamFromForm" class="fi.csc.shibboleth.mobileauth.impl.authn.ExtractMobileSpamFromForm"
+		scope="prototype" p:httpServletRequest-ref="shibboleth.HttpServletRequest" p:mobileNumberField-ref="shibboleth.authn.MobileNumberFieldName"
+		p:spamCodeField-ref="shibboleth.authn.SpamCodeFieldName" />
+
+	<bean id="AuthenticateMobile" class="fi.csc.shibboleth.mobileauth.impl.authn.AuthenticateMobile" scope="prototype"
+		p:httpServletRequest-ref="shibboleth.HttpServletRequest" p:authServer-ref="shibboleth.authn.AuthServer"
+		p:authPort-ref="shibboleth.authn.AuthPort" p:authPath-ref="shibboleth.authn.AuthPath" p:keystoreType-ref="shibboleth.authn.KeystoreType"
+		p:keystorePath-ref="shibboleth.authn.KeystorePath" p:keystorePasswd-ref="shibboleth.authn.KeystorePasswd"
+		p:keyPasswd-ref="shibboleth.authn.KeyPasswd" p:keyAlias-ref="shibboleth.authn.KeyAlias" p:trustStorePath-ref="shibboleth.authn.TrustStorePath"
+		p:trustStoreType-ref="shibboleth.authn.TrustStoreType" p:trustStorePassword-ref="shibboleth.authn.TrustStorePassword" />
+
+	<bean id="ValidateMobileAuthentication" class="fi.csc.shibboleth.mobileauth.impl.authn.ValidateMobileAuthentication"
+		scope="prototype" />
+
+	<bean id="ResolveAuthenticationStatus" class="fi.csc.shibboleth.mobileauth.impl.authn.ResolveAuthenticationStatus"
+		scope="prototype" p:httpServletRequest-ref="shibboleth.HttpServletRequest" p:authServer-ref="shibboleth.authn.AuthServer"
+		p:authPort-ref="shibboleth.authn.AuthPort" p:statusPath-ref="shibboleth.authn.StatusPath" p:keystoreType-ref="shibboleth.authn.KeystoreType"
+		p:keystorePath-ref="shibboleth.authn.KeystorePath" p:keystorePasswd-ref="shibboleth.authn.KeystorePasswd"
+		p:keyPasswd-ref="shibboleth.authn.KeyPasswd" p:keyAlias-ref="shibboleth.authn.KeyAlias" p:trustStorePath-ref="shibboleth.authn.TrustStorePath"
+		p:trustStoreType-ref="shibboleth.authn.TrustStoreType" p:trustStorePassword-ref="shibboleth.authn.TrustStorePassword" />
+
+</beans>

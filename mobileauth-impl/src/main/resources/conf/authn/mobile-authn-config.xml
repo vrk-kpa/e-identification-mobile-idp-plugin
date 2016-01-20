@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+
+       default-init-method="initialize"
+       default-destroy-method="destroy">
+
+    <!--
+    Define entries here to map error messages returned by external modules and classify them as particular
+    kinds of errors for use in your templates and as events in flows.
+
+    The examples here just allow external signaling of the exact type of condition to record.
+
+    If you want to "fall-through" to other login flows, include a mapping to "ReselectFlow".
+    -->
+
+    <!-- Names of form fields to pull mobileNumber and spamCode from. -->
+    <bean id="shibboleth.authn.MobileNumberFieldName" class="java.lang.String" c:_0="j_mobileNumber" />
+    <bean id="shibboleth.authn.SpamCodeFieldName" class="java.lang.String" c:_0="j_spamcode" />
+
+    <!-- Authentication properties -->
+
+    <bean id="shibboleth.authn.AuthServer" class="java.lang.String" c:_0="localhost" />
+    <bean id="shibboleth.authn.AuthPort" class="java.lang.String" c:_0="8443" />
+    <bean id="shibboleth.authn.AuthPath" class="java.lang.String" c:_0="/etsi/authenticate" />
+    <bean id="shibboleth.authn.StatusPath" class="java.lang.String" c:_0="/etsi/getStatus" />
+    
+    <bean id="shibboleth.authn.KeystoreType" class="java.lang.String" c:_0="JKS" />
+    <bean id="shibboleth.authn.KeystorePath" class="java.lang.String" c:_0="/opt/certificates/tomcat/keystore.jks" />
+    <bean id="shibboleth.authn.KeystorePasswd" class="java.lang.String" c:_0="changeit" />
+    <bean id="shibboleth.authn.KeyPasswd" class="java.lang.String" c:_0="changeit" />
+    <bean id="shibboleth.authn.KeyAlias" class="java.lang.String" c:_0="client" />
+    <bean id="shibboleth.authn.TrustStorePath" class="java.lang.String" c:_0="/opt/certificates/tomcat/truststore.jks" />
+    <bean id="shibboleth.authn.TrustStoreType" class="java.lang.String" c:_0="JKS" />
+    <bean id="shibboleth.authn.TrustStorePassword" class="java.lang.String" c:_0="changeit" />
+    
+
+    <util:map id="shibboleth.authn.Shib.ClassifiedMessageMap">
+        <entry key="UnknownUsername">
+            <list>
+                <value>UnknownUsername</value>
+            </list>
+        </entry>
+    </util:map>
+
+</beans>

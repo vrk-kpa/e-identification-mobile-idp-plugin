@@ -1,0 +1,407 @@
+.form-group-header,
+.form-label {
+	display: block;
+}
+
+.form-label small {
+	color: $color-gray-5;
+	font-size: 0.75em;
+	font-family: inherit;
+}
+
+.form-group {
+	margin-bottom: 30px;
+}
+
+[class*="form-group checkbox-loner"] {
+	@include rem(padding-top, 28px);
+}
+
+.radio-group label,
+.checkbox-group label {
+	margin-top: 4px;
+	@include inline-block;
+}
+
+.radio-group-horizontal li,
+.checkbox-group-horizontal li {
+	@include inline-block;
+}
+
+[class*="radio-"] input,
+[class*="checkbox-"] input {
+	opacity: 0;
+	font-size: 0;
+}
+
+input[type="radio"],
+input[type="checkbox"]{
+	position: relative;
+	+ span.cb-marker  {
+		padding: 0 4px 2px 4px;
+		margin-left: -25px;
+		-webkit-border-radius: 4px;
+		border-radius: 4px;
+		margin-bottom: 2px;
+		vertical-align: baseline;
+		position: relative;
+		&:before {
+			content: "";
+			display: inline-block;
+			@include rem(width, 16px);
+			@include rem(height, 16px);
+			border: 1px solid $color-gray-7;
+			border-radius: 3px;
+			vertical-align: middle;
+			margin-top: -1px;
+			@include rem(margin-right, 10px);
+			background: #fff;
+		}
+	}
+	
+	&:focus + span.cb-marker{
+		background: tint($themecolor2, 85%);
+	}
+	
+	&:checked + span.cb-marker {
+		background: tint($themecolor2, 80%);
+		&:before {
+			border: 1px solid $themecolor2;
+			background: $themecolor2;
+		}
+		&:after {
+			@extend .charet;
+			content: $icon-check;
+			color: #fff;
+			@include rem(font-size, 16px);
+			position: absolute;
+			@include rem(left, 5px);
+			@include rem(top, 1px);
+		}
+	}
+	
+	&:disabled + span.cb-marker {
+		background: tint($color-gray-7, 80%);
+		color: $color-gray-4;
+	}
+}
+
+.side-menu {
+	input[type="radio"],
+	input[type="checkbox"]{
+		+ span.cb-marker  {
+			&:before {
+				border: 1px solid #fff;
+			}
+		}
+		&:focus + span.cb-marker{
+			background: tint($themecolor-dark, 10%);
+		}
+		
+		&:checked + span.cb-marker {
+			background: $themecolor-dark;
+			&:before {
+				border: 1px solid $themecolor2;
+			}
+		}
+	}
+}
+
+input[type="radio"]{
+	+ span.cb-marker {
+		&:before {
+			border-radius: 50%;
+		}
+	}
+	
+	&:checked + span.cb-marker {
+		&:before {
+			border: none;
+			@include rem(width, 18px);
+			@include rem(height, 18px);
+		}
+		
+		&:after {
+			content: "";
+			@include rem(width, 8px);
+			@include rem(height, 8px);
+			border-radius: 50%;
+			background: #fff;
+			@include rem(left, 9px);
+			@include rem(top, 9px);
+		}
+	}
+}
+
+.text-size-1 input[type="radio"]:checked + span.cb-marker:after  {
+	@include rem(left, 10px);
+	@include rem(top, 10px)
+}
+
+.text-size-5 input[type="radio"]:checked + span.cb-marker:after  {
+	@include rem(left, 8px);
+	@include rem(top, 0.6em)
+}
+
+
+button,
+input,
+select,
+textarea {
+	@include rem(font-size, 18px);
+	font-family: SourceSansProRegular, "Helvetica Neue", Arial, helvetica, sans-serif, clean;
+}
+
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+input[type="file"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"] {
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-ms-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	border: 2px solid $color-gray-6;
+	background-color: #fff;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-weight: 400;
+    @include rem(padding, 3px 10px);
+	@include rem(line-height, 1.5625);
+    text-transform: none;
+    width: 100%;
+	max-width: 100% !important;
+	&:focus {
+		border-color: $color-bright-azure-light;
+	}
+	&.input-error {
+			border-color: $color-red;
+	}
+	&.placeholder {
+		color: $color-gray-4;
+		font-style: italic;
+	}
+}
+
+textarea.disabled,
+input.disabled,
+textarea[disabled],
+input[disabled]{
+	background-color: tint($color-gray-8, 80%);
+	border-color: $color-gray-8;
+	color: $color-gray-5;
+}
+
+.validation-message {
+	color: $color-red-dark;
+	@include rem(font-size, 14px);
+	@extend .strong;
+	&:empty {
+		display: none;
+	}
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+button,
+.button,
+a.button {
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-ms-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	@include rem(font-size, 18px);
+	background-color: $themecolor2;
+	font-family: SourceSansProSemibold, SourceSansProRegular, 'Helvetica Neue', Arial;
+	border: none;
+    color: #fff;
+    cursor: pointer;
+    @include inline-block;
+	@include rem(padding, 14px 16px);
+    text-align: center;
+    text-decoration: none;
+	vertical-align: top;
+	line-height: 1;
+	@include rem(margin, 0 6px 6px 0);
+	outline: 0;
+	box-shadow: 0;
+	&:hover, &:focus{
+		background-color: shade($themecolor2, 20%);
+		color: #fff;
+		text-decoration: underline;
+	}
+
+	&.button_hollow {
+		border: 3px solid $themecolor2;
+		color: $themecolor2;
+		background: transparent;
+		text-transform: uppercase;
+		font-family: SourceSansProSemibold, SourceSansProRegular, 'Helvetica Neue', Arial;
+		@include rem(padding, 11px 16px);
+		&:hover, &:focus{
+			background-color: $themecolor2;
+			color: #fff;
+			text-decoration: none;
+		}
+		
+		&.button-themecolor {
+			border: 3px solid $themecolor;
+			color: $themecolor;
+			&:hover, &:focus{
+				background-color: $themecolor;
+				color: #fff;
+			}
+		}
+		
+		&.button-light {
+			border: 3px solid #fff;
+			color: #fff;
+			&:hover, &:focus{
+				background-color: #fff;
+				color: $themecolor2;
+			}
+			&.button-themecolor{
+				&:hover, &:focus {
+					color: $themecolor;
+				}
+			}
+		}
+		
+		&.disabled,
+		&[disabled] {
+			border: 3px solid $color-gray-4;
+			color: $color-gray-3;
+			&:hover, &:focus{
+				color: $color-gray-3;
+			}
+		}
+	}
+	
+	&.disabled,
+	&[disabled] {
+		cursor: default;
+		background-color: $color-gray-8;
+		color: $color-gray-3;
+		&:hover, &:focus{
+			background-color: $color-gray-8;
+			text-decoration: none;
+			color: $color-gray-3;
+		}
+	}
+}
+
+
+a.button {
+	@include rem(padding, 15px 16px);
+	&.button_hollow {
+		@include rem(padding, 12px 16px);
+	}
+}
+
+@media (min-width: $breakpoint-3) {
+	.button.sm-right,
+	button.sm-right {
+		margin: 0;
+		@include rem(margin-top, -23px);
+		position: absolute;
+		right: 0;
+		top: 50%;
+	}
+}
+
+[class*="notice-box"] a.button.button_hollow,
+.notice-box a.button.button_hollow,
+[class*="notice-box"] .button.button_hollow,
+.notice-box .button.button_hollow,
+[class*="notice-box"] .button_hollow,
+.notice-box .button_hollow,
+.box .button_hollow {
+	border: 3px solid #fff;
+	color: #fff;
+	background: $themecolor2;
+	text-transform: uppercase;
+	font-family: SourceSansProSemibold, SourceSansProRegular, 'Helvetica Neue', Arial;
+	@include rem(padding, 11px 16px);
+	&:hover, &:focus{
+		background-color: #fff;
+		color: $themecolor2;
+		text-decoration: none;
+	}
+}
+
+[class*="notice-box"],
+.notice-box {
+	&.notice-box-themecolor {
+		a.button.button_hollow,
+		.button.button_hollow,
+		.button_hollow{
+			background-color: $themecolor;
+			&:hover, &:focus{
+				background-color: #fff;
+				color:  $themecolor;
+			}
+		}
+	}
+	
+	&.notice-box-themecolor-dark {
+		a.button.button_hollow,
+		.button.button_hollow,
+		.button_hollow{
+			background-color: $themecolor-dark;
+			&:hover, &:focus{
+				background-color: #fff;
+				color:  $themecolor-dark;
+			}
+		}
+	}
+	
+	&.notice-box-dark {
+		a.button.button_hollow,
+		.button.button_hollow,
+		.button_hollow{
+			background-color: $themecolor2-dark;
+			&:hover, &:focus{
+				background-color: #fff;
+				color:  $themecolor2-dark;
+			}
+		}
+	}
+	
+	&.notice-box-gray {
+		a.button.button_hollow,
+		.button.button_hollow,
+		.button_hollow{
+			background-color: $color-gray-7;
+			border-color: $color-basic-text;
+			color: $color-basic-text;
+			&:hover, &:focus{
+				background-color: $color-basic-text;
+				color:  $color-gray-7;
+			}
+		}
+	}
+}
+
+select {
+	max-width: 100%;
+	text-overflow: ellipsis;
+}
+
+.cancel-button {
+	line-height: 3em;
+	@include inline-block;
+	margin: 0 0.5em 0.5em 0;
+}
