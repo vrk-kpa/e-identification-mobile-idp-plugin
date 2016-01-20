@@ -6,3 +6,6 @@ jdk:
 
 script:
   mvn clean package
+
+after_script:
+  - cat */target/surefire-reports/*.txt
