@@ -25,6 +25,7 @@ public class MobileAuthenticationUtils {
 		Matcher m = p.matcher(number);
 		
 		if (m.find()) {
+			System.out.println("FIND!");
 			return true;
 		}
 		return false;
