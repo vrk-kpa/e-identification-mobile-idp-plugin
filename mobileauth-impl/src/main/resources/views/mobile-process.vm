@@ -1,0 +1,91 @@
+#set ($rpContext = $profileRequestContext.getSubcontext('net.shibboleth.idp.profile.context.RelyingPartyContext'))
+#set ($username = $authenticationContext.getSubcontext('net.shibboleth.idp.authn.context.UsernamePasswordContext', true).getUsername())
+#set ($passwordEnabled = false)
+#if (!$passwordPrincipals or $passwordPrincipals.isEmpty() or $authenticationContext.isAcceptable($passwordPrincipals))
+  #set ($passwordEnabled = true)
+#end
+#set ($mobileContext = $authenticationContext.getSubcontext('fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext'))
+#set ($convKey = $mobileContext.getConversationKey())
+#set ($eventId = $mobileContext.getEventId())
+#set ($processState = $mobileContext.getProcessState())
+#set ($processState = $mobileContext.getErrorMessage())
+##
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <title>#springMessageText("idp.title", "Web Login Service")</title>
+      <link rel="stylesheet" type="text/css" href="$request.getContextPath()/css/main.css">
+        <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    </head>
+    <body>
+    <div class="wrapper">
+      <div class="container">
+        <header>
+          <img src="$request.getContextPath()#springMessage("idp.logo")" alt="#springMessageText("idp.logo.alt-text", "logo")">
+        </header>
+
+        <div class="content">
+          <div class="column one">
+          <p>+35847001001</p>
+          <p>convKey: $convKey</p>
+          <p>EventId: $eventId</p>
+          <p>ProcessState: $processState</p>
+          #parse("login-error.vm")
+
+          #if ($processState and !$errorMessage)
+          #set ($link = $flowExecutionUrl + "&_eventId=retry")
+
+        <script>
+         function rec_ajax(status_url) {
+        console.log("Calling rec");
+        var jsonMimeType = "application/json;charset=UTF-8";
+
+        $.ajax({
+                type:"GET",
+                async:"false",
+                url: status_url,
+                beforeSend: function(x) {
+                  if(x && x.overrideMimeType) {
+                  x.overrideMimeType(jsonMimeType);
+                  }
+                },
+                dataType:"json",
+                success: function(data)
+                {
+                    console.log(data);
+
+                    var n = data.status.link.indexOf("SSO");
+                    console.log("LINK: " + data.status.link);
+                    urli = data.status.link.substring(n);
+                    console.log("URL: " + urli);
+                    if(data.status.state !== "IN_PROCESS") location.href = urli;
+
+                    setTimeout(function(){
+                      rec_ajax(urli);
+                    }, 3000);
+
+                },
+                error: function (request, status, error) {
+                alert(request.responseText);
+                }
+            });
+         }
+
+        $(document).ready(rec_ajax("$link"));
+
+        </script>
+      #end
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="container container-footer">
+          <p class="footer-text">#springMessageText("idp.footer", "Insert your footer text here.")</p>
+        </div>
+      </footer>
+    </div>
+
+  </body>
+</html>

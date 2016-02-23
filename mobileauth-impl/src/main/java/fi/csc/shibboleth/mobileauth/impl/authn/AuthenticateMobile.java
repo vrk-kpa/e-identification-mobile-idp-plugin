@@ -213,7 +213,7 @@ public class AuthenticateMobile extends AbstractAuthenticationAction {
             return;
         }
 
-        //TODO: entity initialization
+        // TODO: entity initialization
         HttpEntity entity = null;
         try {
             final URIBuilder builder = new URIBuilder();

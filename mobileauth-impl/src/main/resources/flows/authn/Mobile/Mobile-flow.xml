@@ -67,7 +67,7 @@
 		<transition on="proceed" to="ReturnToView" />
 	</action-state>
 
-	<view-state id="ReturnToView" view="mobile">
+	<view-state id="ReturnToView" view="mobile-process">
 		<on-render>
 			<evaluate expression="environment" result="viewScope.environment" />
 			<evaluate expression="opensamlProfileRequestContext" result="viewScope.profileRequestContext" />
