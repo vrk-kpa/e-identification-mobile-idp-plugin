@@ -60,12 +60,10 @@
 
 	<action-state id="AuthenticateMobile">
 		<evaluate expression="AuthenticateMobile" />
-		<evaluate expression="'proceed'" />
-		<transition on="InvalidCredentials" to="DisplayPhoneNumberSpamCode" />
-		<transition on="GatewayError" to="DisplayPhoneNumberSpamCode" />
-		<transition on="RuntimeException" to="DisplayPhoneNumberSpamCode" />
-		<transition on="CheckInput" to="DisplayPhoneNumberSpamCode" />
-		<transition on="proceed" to="ReturnToView" />
+		<transition on="networkError" to="DisplayPhoneNumberSpamCode" />
+		<transition on="gatewayError" to="DisplayPhoneNumberSpamCode" />
+		<transition on="failure" to="DisplayPhoneNumberSpamCode" />
+		<transition on="success" to="ReturnToView" />
 	</action-state>
 
 	<view-state id="ReturnToView" view="mobile-process">

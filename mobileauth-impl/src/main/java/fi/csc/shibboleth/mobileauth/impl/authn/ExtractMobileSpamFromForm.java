@@ -86,7 +86,7 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
             ActionSupport.buildEvent(profileRequestContext, EventIds.INVALID_PROFILE_CTX);
             return false;
         }
-
+        
         return true;
     }
 

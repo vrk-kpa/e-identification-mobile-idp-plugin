@@ -29,6 +29,8 @@ import org.opensaml.profile.action.EventIds;
 import org.opensaml.profile.context.ProfileRequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.webflow.execution.Event;
+import org.springframework.webflow.execution.RequestContext;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,8 +38,9 @@ import com.google.gson.GsonBuilder;
 import fi.csc.shibboleth.mobileauth.api.authn.StatusResponse;
 import fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext;
 import fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext.ProcessState;
-import net.shibboleth.idp.authn.AbstractAuthenticationAction;
+import net.shibboleth.idp.authn.AuthnEventIds;
 import net.shibboleth.idp.authn.context.AuthenticationContext;
+import net.shibboleth.idp.profile.AbstractProfileAction;
 import net.shibboleth.idp.profile.ActionSupport;
 import net.shibboleth.utilities.java.support.annotation.constraint.NotEmpty;
 import net.shibboleth.utilities.java.support.component.ComponentSupport;
@@ -45,7 +48,7 @@ import net.shibboleth.utilities.java.support.logic.Constraint;
 import net.shibboleth.utilities.java.support.primitive.StringSupport;
 
 @SuppressWarnings("rawtypes")
-public class AuthenticateMobile extends AbstractAuthenticationAction {
+public class AuthenticateMobile extends AbstractProfileAction {
 
     public static final String EVENTID_GATEWAY_ERROR = "GatewayError";
 
@@ -169,16 +172,12 @@ public class AuthenticateMobile extends AbstractAuthenticationAction {
      * Default constructor
      */
     public AuthenticateMobile() {
-        super();
     }
 
-    @SuppressWarnings({ "unchecked" })
     protected boolean doPreExecute(@Nonnull final ProfileRequestContext profileRequestContext,
             @Nonnull final AuthenticationContext authenticationContext) {
 
-        if (!super.doPreExecute(profileRequestContext, authenticationContext)) {
-            return false;
-        }
+        log.debug("Entering doPreExecute - AuthenticateMobile");
 
         if (authenticationContext.getAttemptedFlow() == null) {
             log.error("{} No attempted flow within authentication context", getLogPrefix());
@@ -195,13 +194,14 @@ public class AuthenticateMobile extends AbstractAuthenticationAction {
         return true;
     }
 
-    @Override
-    protected void doExecute(@Nonnull final ProfileRequestContext profileRequestContext,
-            @Nonnull final AuthenticationContext authenticationContext) {
+    protected Event doExecute(@Nonnull final RequestContext springRequestContext,
+            @Nonnull final ProfileRequestContext profileRequestContext) {
         log.debug("{} Entering - doExecute", getLogPrefix());
 
-        final MobileContext mobCtx = authenticationContext.getSubcontext(MobileContext.class, false);
-
+        // final MobileContext mobCtx =
+        // authenticationContext.getSubcontext(MobileContext.class, false);
+        final MobileContext mobCtx = profileRequestContext.getSubcontext(AuthenticationContext.class)
+                .getSubcontext(MobileContext.class);
         final String mobileNumber = StringSupport.trimOrNull(mobCtx.getMobileNumber());
         final String spamCode = StringSupport.trimOrNull(mobCtx.getSpamCode());
 
@@ -211,8 +211,7 @@ public class AuthenticateMobile extends AbstractAuthenticationAction {
             httpClient = createHttpClient();
         } catch (KeyStoreException | RuntimeException e) {
             log.error("{} Cannot create httpClient", getLogPrefix(), e);
-            ActionSupport.buildEvent(profileRequestContext, EventIds.RUNTIME_EXCEPTION);
-            return;
+            return Events.failure.event(this);
         }
 
         // TODO: entity initialization
@@ -257,31 +256,31 @@ public class AuthenticateMobile extends AbstractAuthenticationAction {
             } else if (statusCode == HttpStatus.SC_METHOD_NOT_ALLOWED) {
                 mobCtx.setProcessState(ProcessState.ERROR);
                 // TODO: multilingual error message
-                log.warn("{} Status code {} from REST gateway", getLogPrefix(), statusCode);
-                ActionSupport.buildEvent(profileRequestContext, EVENTID_CHECK_INPUT);
-                return;
+                log.warn("{} 405 - Status code {} from REST gateway", getLogPrefix(), statusCode);
+                return Events.failure.event(this);
             } else if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
                 mobCtx.setProcessState(ProcessState.ERROR);
                 // TODO: multilingual error message
-                log.error("{} Status code {} from REST gateway - Invalid client configuration?", getLogPrefix(), statusCode);
-                ActionSupport.buildEvent(profileRequestContext, EVENTID_GATEWAY_ERROR);
-                return;
+                log.error("{} 401 - Status code {} from REST gateway - Invalid client configuration?"
+                        , getLogPrefix(),statusCode);
+                return Events.failure.event(this);
             } else {
                 mobCtx.setProcessState(ProcessState.ERROR);
                 // TODO: multilingual error message
                 log.warn("{} Status code {} from REST gateway", getLogPrefix(), statusCode);
-                ActionSupport.buildEvent(profileRequestContext, EVENTID_GATEWAY_ERROR);
-                return;
+                return Events.gatewayError.event(this);
             }
 
         } catch (Exception e) {
-            // TODO: better exception handling and consume response entity
+            // TODO: better exception handling
             log.error("Exception: {}", e);
-            ActionSupport.buildEvent(profileRequestContext, EventIds.RUNTIME_EXCEPTION);
-            return;
+            ActionSupport.buildEvent(profileRequestContext, AuthnEventIds.AUTHN_EXCEPTION);
+            return Events.failure.event(this);
         } finally {
             EntityUtils.consumeQuietly(entity);
         }
+
+        return Events.success.event(this);
     }
 
     private CloseableHttpClient createHttpClient() throws KeyStoreException, RuntimeException {
