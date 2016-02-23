@@ -49,6 +49,8 @@ import net.shibboleth.utilities.java.support.primitive.StringSupport;
 @SuppressWarnings("rawtypes")
 public class ResolveAuthenticationStatus extends AbstractProfileAction {
 
+    public static final String EVENTID_GATEWAY_ERROR = "GatewayError";
+    
     /** Class logger. */
     @Nonnull
     private final Logger log = LoggerFactory.getLogger(ResolveAuthenticationStatus.class);
@@ -178,7 +180,7 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
             return false;
         }
 
-        return false;
+        return true;
 
     }
 
@@ -219,7 +221,7 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
             builder.setScheme("https").setHost(authServer).setPort(authPort).setPath(statusPath)
                     .setParameter("communicationDataKey", conversationKey);
 
-            URI url = builder.build();
+            final URI url = builder.build();
             log.debug("{} getStatus URL: {}", getLogPrefix(), url.toURL());
 
             final HttpGet httpGet = new HttpGet(url);
@@ -231,18 +233,20 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
             int statusCode = response.getStatusLine().getStatusCode();
             log.debug("{} HTTPStatusCode {}", getLogPrefix(), statusCode);
 
-            if (statusCode == HttpStatus.SC_UNAUTHORIZED && statusCode == HttpStatus.SC_METHOD_NOT_ALLOWED) {
-                log.info("{} Authentication failed for {} with error [{}]", getLogPrefix(), mobCtx.getMobileNumber(),
+            if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
+                log.error("{} Authentication failed for {} with error [{}]", getLogPrefix(), mobCtx.getMobileNumber(),
                         statusCode);
                 mobCtx.setProcessState(ProcessState.ERROR);
+                ActionSupport.buildEvent(profileCtx, EventIds.RUNTIME_EXCEPTION);
+                return;
             }
-
+            
             if (statusCode == HttpStatus.SC_OK) {
 
                 entity = response.getEntity();
-                String json = EntityUtils.toString(entity, "UTF-8");
+                final String json = EntityUtils.toString(entity, "UTF-8");
 
-                StatusResponse status = gson.fromJson(json, StatusResponse.class);
+                final StatusResponse status = gson.fromJson(json, StatusResponse.class);
 
                 log.debug("{} Gson commKey: {}", getLogPrefix(), status.getCommunicationDataKey());
                 log.debug("{} Gson EventID: {}", getLogPrefix(), status.getEventId());
@@ -250,7 +254,7 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
 
                 response.close();
 
-                Map<String, String> attributes = status.getAttributes();
+                final Map<String, String> attributes = status.getAttributes();
 
                 if (status.getErrorMessage() == null && !MapUtils.isEmpty(attributes)) {
 
@@ -276,11 +280,18 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
 
             } else {
                 mobCtx.setProcessState(ProcessState.ERROR);
-                log.info("HttpClient Error: {}", response.getStatusLine().getStatusCode());
+                // TODO: multilingual error message
+                log.error("{} Unexpected status code {} from REST gateway", getLogPrefix(), statusCode);
+                ActionSupport.buildEvent(profileCtx, EVENTID_GATEWAY_ERROR);
+                return;
             }
 
         } catch (Exception e) {
-            log.info("Exception: ", e);
+            log.error("Exception: {}", e);
+            ActionSupport.buildEvent(profileCtx, EventIds.RUNTIME_EXCEPTION);
+            return;
+        } finally {
+            EntityUtils.consumeQuietly(entity);
         }
 
     }

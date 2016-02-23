@@ -124,7 +124,7 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
         log.debug("{} Added mobileNumber to the context [{}]", getLogPrefix(), mobCtx.getMobileNumber());
 
         final String spamCode = request.getParameter(spamCodeField);
-        if (StringSupport.trimOrNull(spamCode) != null) {
+        if (StringSupport.trimOrNull(spamCode) == null) {
             log.debug("{} No spamCode in the request, which is fine", getLogPrefix());
 
         } else {

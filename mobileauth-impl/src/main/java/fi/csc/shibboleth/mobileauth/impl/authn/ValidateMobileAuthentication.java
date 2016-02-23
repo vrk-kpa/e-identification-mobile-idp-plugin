@@ -45,13 +45,14 @@ public class ValidateMobileAuthentication extends AbstractValidationAction {
 	protected void doExecute(@Nonnull final ProfileRequestContext profileRequestContext,
 			@Nonnull final AuthenticationContext authenticationContext) {
 
-		if (StringSupport.trimOrNull(mobCtx.getMobileNumber()) == null) {
-			log.debug("Context doesn't contain mobileNumber");
+		if (StringSupport.trimOrNull(mobCtx.getMobileNumber()) == null || mobCtx.getAttributes().isEmpty()) {
+			log.debug("Context doesn't contain mobileNumber or attribute statement is empty");
 			handleError(profileRequestContext, authenticationContext, AuthnEventIds.NO_CREDENTIALS,
 					AuthnEventIds.NO_CREDENTIALS);
 			return;
 		}
 		log.debug("Building AuthenticationResult for {}", mobCtx.getMobileNumber());
+		
 		buildAuthenticationResult(profileRequestContext, authenticationContext);
 	}
 

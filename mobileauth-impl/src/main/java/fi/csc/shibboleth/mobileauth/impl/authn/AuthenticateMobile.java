@@ -49,6 +49,8 @@ public class AuthenticateMobile extends AbstractAuthenticationAction {
 
     public static final String EVENTID_GATEWAY_ERROR = "GatewayError";
 
+    public static final String EVENTID_CHECK_INPUT = "CheckInput";
+
     /** Class logger. */
     @Nonnull
     private final static Logger log = LoggerFactory.getLogger(AuthenticateMobile.class);
@@ -252,10 +254,22 @@ public class AuthenticateMobile extends AbstractAuthenticationAction {
                 mobCtx.setConversationKey(status.getCommunicationDataKey());
                 mobCtx.setEventId(status.getEventId());
                 mobCtx.setErrorMessage(status.getErrorMessage());
+            } else if (statusCode == HttpStatus.SC_METHOD_NOT_ALLOWED) {
+                mobCtx.setProcessState(ProcessState.ERROR);
+                // TODO: multilingual error message
+                log.warn("{} Status code {} from REST gateway", getLogPrefix(), statusCode);
+                ActionSupport.buildEvent(profileRequestContext, EVENTID_CHECK_INPUT);
+                return;
+            } else if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
+                mobCtx.setProcessState(ProcessState.ERROR);
+                // TODO: multilingual error message
+                log.error("{} Status code {} from REST gateway - Invalid client configuration?", getLogPrefix(), statusCode);
+                ActionSupport.buildEvent(profileRequestContext, EVENTID_GATEWAY_ERROR);
+                return;
             } else {
                 mobCtx.setProcessState(ProcessState.ERROR);
                 // TODO: multilingual error message
-                log.error("{} Unexpected status code {} from REST gateway", getLogPrefix(), statusCode);
+                log.warn("{} Status code {} from REST gateway", getLogPrefix(), statusCode);
                 ActionSupport.buildEvent(profileRequestContext, EVENTID_GATEWAY_ERROR);
                 return;
             }
