@@ -43,7 +43,6 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
      * Default constructor.
      */
     public ExtractMobileSpamFromForm() {
-        super();
     }
 
     /**
