@@ -51,7 +51,7 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
      * @param fieldName
      *            the mobileNumberField variable name
      */
-    public void setmobileNumberField(@Nonnull @NotEmpty final String fieldName) {
+    public void setMobileNumberField(@Nonnull @NotEmpty final String fieldName) {
         log.debug("Injecting mobileNumber");
         ComponentSupport.ifInitializedThrowUnmodifiabledComponentException(this);
         mobileNumberField = Constraint.isNotNull(StringSupport.trimOrNull(fieldName),
@@ -64,7 +64,7 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
      * @param fieldName
      *            the spamCodeField variable name
      */
-    public void setspamCodeField(@Nonnull @NotEmpty final String fieldName) {
+    public void setSpamCodeField(@Nonnull @NotEmpty final String fieldName) {
         log.debug("Injecting SpamCode");
         ComponentSupport.ifInitializedThrowUnmodifiabledComponentException(this);
         spamCodeField = Constraint.isNotNull(StringSupport.trimOrNull(fieldName),
