@@ -23,7 +23,7 @@ public class EventTest extends PopulateAuthenticationContextTest {
     // Just testing. Basically really stupid test
     @SuppressWarnings("static-access")
     @Test
-    public void testSuccess() {
+    public void testEvents() {
         Assert.assertNotEquals(action.success.event(this).toString(), action.failure.event(this).toString());
         Assert.assertSame(action.success.event(this).toString(), action.success.event(this).toString());
 
