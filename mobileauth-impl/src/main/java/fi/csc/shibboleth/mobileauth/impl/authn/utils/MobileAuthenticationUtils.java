@@ -80,10 +80,22 @@ public class MobileAuthenticationUtils {
         return false;
     }
 
+    /** 
+     * Extracts language code from the AuthnRequest extension element
+     * 
+     * @param xmlElement AuthnRequest
+     * @param ns XML Namespace where language code lives
+     * @param tag XML element where language code lives
+     * @return lang 
+     */
     public static String unMarshallLanguage(Element xmlElement, String ns, String tag) {
 
-        final String lang = StringSupport
-                .trimOrNull(xmlElement.getElementsByTagNameNS(ns, tag).item(0).getTextContent());
+        String lang = null;
+        
+        if (xmlElement.getElementsByTagNameNS(ns, tag).getLength() > 0) {
+
+            lang = StringSupport.trimOrNull(xmlElement.getElementsByTagNameNS(ns, tag).item(0).getTextContent());
+        }
 
         if (lang != null && langs.contains(lang)) {
             return lang;
