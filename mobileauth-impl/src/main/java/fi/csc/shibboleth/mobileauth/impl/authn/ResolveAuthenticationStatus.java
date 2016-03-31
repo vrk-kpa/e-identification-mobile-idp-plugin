@@ -50,7 +50,7 @@ import net.shibboleth.utilities.java.support.primitive.StringSupport;
 public class ResolveAuthenticationStatus extends AbstractProfileAction {
 
     public static final String EVENTID_GATEWAY_ERROR = "GatewayError";
-    
+
     /** Class logger. */
     @Nonnull
     private final Logger log = LoggerFactory.getLogger(ResolveAuthenticationStatus.class);
@@ -240,7 +240,7 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
                 ActionSupport.buildEvent(profileCtx, EventIds.RUNTIME_EXCEPTION);
                 return;
             }
-            
+
             if (statusCode == HttpStatus.SC_OK) {
 
                 entity = response.getEntity();

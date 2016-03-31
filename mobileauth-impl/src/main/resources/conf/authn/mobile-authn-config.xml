@@ -41,6 +41,8 @@
     <bean id="shibboleth.authn.TrustStoreType" class="java.lang.String" c:_0="JKS" />
     <bean id="shibboleth.authn.TrustStorePassword" class="java.lang.String" c:_0="changeit" />
     
+    <bean id="shibboleth.authn.LangNamespace" class="java.lang.String" c:_0="urn:kapa:SAML:2.0:extensions" />
+    <bean id="shibboleth.authn.Lang" class="java.lang.String" c:_0="kapa" />
 
     <util:map id="shibboleth.authn.Shib.ClassifiedMessageMap">
         <entry key="UnknownUsername">

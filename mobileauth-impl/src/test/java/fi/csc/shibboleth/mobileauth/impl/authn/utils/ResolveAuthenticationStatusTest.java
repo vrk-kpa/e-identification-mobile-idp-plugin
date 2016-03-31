@@ -2,23 +2,13 @@ package fi.csc.shibboleth.mobileauth.impl.authn.utils;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang.ObjectUtils.Null;
-import org.opensaml.profile.action.EventIds;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.webflow.execution.Event;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext;
 import fi.csc.shibboleth.mobileauth.impl.authn.ResolveAuthenticationStatus;
-import net.shibboleth.idp.authn.AuthnEventIds;
-import net.shibboleth.idp.authn.context.AuthenticationContext;
 import net.shibboleth.idp.authn.impl.PopulateAuthenticationContextTest;
-import net.shibboleth.idp.profile.ActionTestingSupport;
 import net.shibboleth.utilities.java.support.component.ComponentInitializationException;
 
 public class ResolveAuthenticationStatusTest extends PopulateAuthenticationContextTest {

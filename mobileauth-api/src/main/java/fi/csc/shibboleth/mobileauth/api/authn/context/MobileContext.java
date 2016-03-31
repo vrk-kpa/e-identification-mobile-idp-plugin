@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import org.opensaml.messaging.context.BaseContext;
 
 import net.shibboleth.utilities.java.support.annotation.constraint.NotEmpty;
+import net.shibboleth.utilities.java.support.primitive.StringSupport;
 
 public class MobileContext extends BaseContext {
 	
@@ -37,6 +38,10 @@ public class MobileContext extends BaseContext {
 	/** EventID */
 	@Nonnull
 	private String eventId;
+	
+	/** User language */
+	@Nonnull
+	private String lang;
 
 	/** Error Message */
 	private String errorMessage;
@@ -65,9 +70,22 @@ public class MobileContext extends BaseContext {
 	/** Constructor */
 	public MobileContext() {
 		attributes = new HashMap<String, String>();
+		lang = "fi";
 	}
 
-	/** Set mobile number */
+	public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        lang = StringSupport.trimOrNull(lang);
+        
+        if (lang != null && lang.length() == 2) {
+            this.lang = lang;    
+        }        
+    }
+
+    /** Set mobile number */
 	@Nonnull @NotEmpty public String getMobileNumber() {
 		return mobileNumber;
 	}
