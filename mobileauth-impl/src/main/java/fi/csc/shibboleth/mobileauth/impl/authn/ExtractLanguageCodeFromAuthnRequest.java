@@ -72,6 +72,9 @@ public class ExtractLanguageCodeFromAuthnRequest extends AbstractProfileAction {
         if (lang != null) {
             log.debug("{} Adding language [{}] to the MobileContext", getLogPrefix(), lang);
             mobCtx.setLang(lang);
+            return;
         }
+        
+        log.debug("{} Adding default language [{}] to the MobileContext", getLogPrefix(), mobCtx.getLang());
     }
 }
