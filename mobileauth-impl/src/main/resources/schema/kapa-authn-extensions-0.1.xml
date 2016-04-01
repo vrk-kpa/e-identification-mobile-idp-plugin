@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified" targetNamespace="urn:kapa:SAML:2.0:extensions"
+	xmlns="urn:kapa:SAML:2.0:extensions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:complexType name="KapaExtensions">
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="1" name="lang" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="kapa" type="KapaExtensions" />
+</xs:schema>

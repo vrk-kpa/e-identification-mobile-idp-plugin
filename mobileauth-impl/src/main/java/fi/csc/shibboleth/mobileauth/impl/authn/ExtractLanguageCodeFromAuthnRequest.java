@@ -67,7 +67,14 @@ public class ExtractLanguageCodeFromAuthnRequest extends AbstractProfileAction {
         final AuthnRequest authnReq = (AuthnRequest) profileRequestContext.getInboundMessageContext().getMessage();
         final Element root = authnReq.getDOM();
 
-        final String lang = MobileAuthenticationUtils.unMarshallLanguage(root, ns, langTag);
+        
+        String lang = null;
+        
+	try {
+	    lang = MobileAuthenticationUtils.unMarshallLanguage(root, ns, langTag);
+	} catch (Exception e) {
+
+	}
 
         if (lang != null) {
             log.debug("{} Adding language [{}] to the MobileContext", getLogPrefix(), lang);

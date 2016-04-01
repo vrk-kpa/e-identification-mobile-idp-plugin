@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:kapa="urn:kapa:SAML:2.0:extensions" xmlns="http://www.opensaml.org/xmltooling-config" xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd">
+    <ObjectProviders>
+        <ObjectProvider qualifiedName="kapa:KapaExtension">
+            <BuilderClass className="fi.csc.shibboleth.mobileauth.impl.authn.utils.impl.KapaExtensionBuilder"/>
+            <MarshallingClass className="fi.csc.shibboleth.mobileauth.impl.authn.utils.impl.KapaExtensionMarshaller"/>
+            <UnmarshallingClass className="fi.csc.shibboleth.mobileauth.impl.authn.utils.impl.KapaExtensionUnmarshaller"/>
+        </ObjectProvider>
+    </ObjectProviders>
+</XMLTooling>
