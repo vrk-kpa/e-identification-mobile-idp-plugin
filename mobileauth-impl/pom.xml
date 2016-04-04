@@ -66,6 +66,10 @@
 			<artifactId>opensaml-soap-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>${opensaml.groupId}</groupId>
+			<artifactId>opensaml-profile-impl</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
