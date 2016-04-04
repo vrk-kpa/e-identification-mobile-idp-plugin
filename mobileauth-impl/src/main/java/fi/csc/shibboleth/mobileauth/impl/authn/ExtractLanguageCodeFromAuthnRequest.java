@@ -44,7 +44,7 @@ public class ExtractLanguageCodeFromAuthnRequest extends AbstractProfileAction {
 
     @Override
     protected boolean doPreExecute(ProfileRequestContext profileRequestContext) {
-        log.debug("Entering ResolveAuthenticationStatus doPreExecute");
+        log.debug("Entering ExtractLanguageCodeFromAuthnRequest doPreExecute");
 
         if (profileRequestContext.getSubcontext(AuthenticationContext.class, false) == null) {
             log.error("{} No authentication context", getLogPrefix());
