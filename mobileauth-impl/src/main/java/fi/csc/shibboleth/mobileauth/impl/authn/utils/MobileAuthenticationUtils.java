@@ -11,13 +11,14 @@ import net.shibboleth.utilities.java.support.primitive.StringSupport;
 
 /**
  * 
- * @author kkorte
+ * @author korteke
  *
  */
 public class MobileAuthenticationUtils {
 
     private final static String NUM_PREFIX = "+358";
-    private final static List<String> langs = Arrays.asList("fi", "sv", "en");
+    private final static List<String> LANGS = Arrays.asList("fi", "sv", "en");
+    private final static String DEFAULT_LANG = "fi";
 
     /**
      * Validate phoneNumber against regular expression
@@ -90,6 +91,7 @@ public class MobileAuthenticationUtils {
      */
     public static String unMarshallLanguage(Element xmlElement, String ns, String tag) {
 
+        // Defaulting to finnish language
         String lang = null;
         
         if (xmlElement.getElementsByTagNameNS(ns, tag).getLength() > 0) {
@@ -97,9 +99,10 @@ public class MobileAuthenticationUtils {
             lang = StringSupport.trimOrNull(xmlElement.getElementsByTagNameNS(ns, tag).item(0).getTextContent());
         }
 
-        if (lang != null && langs.contains(lang)) {
+        if (lang != null && LANGS.contains(lang)) {
             return lang;
         }
-        return null;
+        return DEFAULT_LANG;
     }
+    
 }

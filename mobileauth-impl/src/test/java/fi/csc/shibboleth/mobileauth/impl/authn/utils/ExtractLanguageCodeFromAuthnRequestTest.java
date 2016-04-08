@@ -1,5 +1,7 @@
 package fi.csc.shibboleth.mobileauth.impl.authn.utils;
 
+import java.util.Locale;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.opensaml.messaging.context.MessageContext;
@@ -7,6 +9,8 @@ import org.opensaml.profile.action.ActionTestingSupport;
 import org.opensaml.profile.context.ProfileRequestContext;
 import org.opensaml.saml.saml2.core.AuthnRequest;
 import org.opensaml.saml.saml2.core.impl.AuthnRequestBuilder;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
@@ -61,6 +65,9 @@ public class ExtractLanguageCodeFromAuthnRequestTest {
     @SuppressWarnings("unchecked")
     @Test
     public void testSuccessLangExtract() throws ComponentInitializationException, ParserConfigurationException {
+        action.setHttpServletRequest(new MockHttpServletRequest());
+        ((MockHttpServletRequest) action.getHttpServletRequest()).setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, Locale.ENGLISH);
+        
         messageContext = new MessageContext<>();
         authreq = new AuthnRequestBuilder().buildObject();
         

@@ -29,7 +29,8 @@
 	<bean id="ExtractLanguageCodeFromAuthnRequest"
 		class="fi.csc.shibboleth.mobileauth.impl.authn.ExtractLanguageCodeFromAuthnRequest"
 		scope="prototype" p:ns-ref="shibboleth.authn.LangNamespace"
-		p:langTag-ref="shibboleth.authn.Lang" />
+		p:langTag-ref="shibboleth.authn.Lang" 
+		p:httpServletRequest-ref="shibboleth.HttpServletRequest" />
 
 	<bean id="ExtractMobileSpamFromForm"
 		class="fi.csc.shibboleth.mobileauth.impl.authn.ExtractMobileSpamFromForm"
