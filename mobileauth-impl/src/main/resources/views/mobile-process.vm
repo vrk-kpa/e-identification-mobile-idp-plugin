@@ -18,16 +18,17 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>#springMessageText("idp.title", "Web Login Service")</title>
+    <title>#springMessageText("idp.login.page-title", "Suomi.fi-tunnistaminen")</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <meta http-equiv="Cache-Control" content="no-cache, no-store" />
-    <link rel="stylesheet" href="https://vagrant.local/idp/stylesheets/style.css">
-    <script src="https://vagrant.local/idp/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="#springUrl("/stylesheets/style.css")">
+    <script src="#springUrl("/js/vendor/modernizr-2.8.3.min.js")"></script>
+    <script src="#springUrl("/js/vendor/modernizr-2.8.3.min.js")"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
         <!--[if lt IE 9]>
-            <script src="https://vagrant.local/idp/js/vendor/respond.js"></script>
+            <script src="#springUrl("/js/vendor/respond.js")"></script>
             <![endif]-->
 </head>
 <body id="identification-service" class="txlive">
@@ -38,8 +39,8 @@
             </ul>
 
             <ul class="adjust-font-size" aria-hidden="true">
-                <li><button title="Pienennä tekstikokoa" class="decrease-font-size">A-</button></li>
-                <li><button title="Suurenna tekstikokoa" class="increase-font-size">A+</button></li>
+                <li><button title="#springMessageText("idp.login.decrease-font-size", "Pienennä tekstikokoa")" class="decrease-font-size">A-</button></li>
+                <li><button title="#springMessageText("idp.login.increase-font-size", "Suurenna tekstikokoa")" class="increase-font-size">A+</button></li>
             </ul>
         </div>
     </div>
@@ -50,7 +51,7 @@
 
                     <div class="logo-row">
                         <h1 class="site-logo">
-                            Suomi.fi-tunnistaminen
+                            #springMessageText("idp.login.page-title", "Suomi.fi-tunnistaminen")
                         </h1>
                     </div>
                 </div>
@@ -73,27 +74,19 @@
             <div class="row">
             </div>
 
-            <p>Matkapuhelimeesi on lähetetty tunnistuspyyntö, jonka tapahtumatunnus on:</p>
+            <p>#springMessageText("idp.login.page-text5", "Matkapuhelimeesi on lähetetty tunnistuspyyntö, jonka tapahtumatunnus on:") </p></p>
                 <p class="strong">$eventId</p>
-                        <p><br />Jatka tunnistautumista matkapuhelimellasi:<p>
-                        <ol class="numbered-list">
-                                <li>Kuittaa tunnistuspyyntö painamalla OK-näppäintä.</li>
-                                <li>Tarkista, että tapahtumatunnus on sama kuin yllä.</li>
-                                <li>Kuittaa tunnistautuminen painamalla OK-näppäintä.</li>
-                                <li>Kirjoita varmenteen tunnusluku-PIN. Paina OK-näppäintä.</li>
-                                <li>Odota tunnistautumista.</li>
-                        </ol>
-                <div class="loader">Haetaan sisältöä...</div>
+           #springMessageText("idp.login.page-text6", "")
+                <div class="loader">#springMessageText("idp.login.page-text7", "Haetaan sisältöä...")</div>
 
                <div class="col-xs-12 service-top"><br>
-                    <a href=$flowExecutionUrl&_eventId=AuthenticationException class="go-back">Peruuta ja palaa tunnistusvälineen valintaan</a><br>
+                 <a href=$flowExecutionUrl&_eventId=AuthenticationException class="go-back">#springMessageText("idp.login.page-cancel", "Peruuta ja palaa tunnistusvälineen valintaan") </a><br>
                 </div>
                     <div class="row">
-                        <h3>Hyvä tietää</h3>
+                       <h3>#springMessageText("idp.login.page-text2", "Hyvä tietää")</h3>
                         <div class="col-xs-12 col-md-8">
                             <div class="text">
-                                <p>Puhelinoperaattorisi veloittaa palvelun käytöstä tekemäsi sopimuksen mukaan.</p>
-                                <p>Ota yhteyttä puhelinoperaattoriisi jos haluat ottaa mobiilivarmenteen käyttöösi.</p>
+                                #springMessageText("idp.login.page-text3", "")
                             </div>
                         </div>
                     </div>
@@ -104,20 +97,20 @@
             <div class="container">
                 <div class="row">
                     <div id="footer-logo">
-                        <img src="https://vagrant.local/idp/img/footer-logo2.svg" alt="Väestörekisterikeskus logo">
+                        <img src="#springUrl("/img/footer-logo2.svg")" alt="#springMessageText("idp.login.page-vrk-logo", "Väestörekisterikeskus logo")">
                     </div>
-                    <p>Kansalaisen tunnistuspalvelusta vastaa <a href="http://vrk.fi/">Väestörekisterikeskus</a></p>
+                    #springMessageText("idp.login.page-text4", "")
                     <ul class="link-list">
-            <li><a target="_blank" href="https://testi.apro.tunnistus.fi/info/tietoapalvelusta/">Tietoa tunnistautumisesta</a></li>
-            <li><a target="_blank" href="https://testi.apro.tunnistus.fi/info/tietosuojaseloste/">Henkilötietolain mukainen tietosuojaseloste</a></li>
-            <li><a target="_blank" href="https://testi.apro.tunnistus.fi/info/palaute/">Ilmoita virheestä tai anna palautetta</a></li>
+<li><a target="_blank" href="https://testi.apro.tunnistus.fi/info/tietoapalvelusta/">#springMessageText("idp.login.page-info", "Tietoa palvelusta")</a></li>
+            <li><a target="_blank" href="https://testi.apro.tunnistus.fi/info/tietosuojaseloste/">#springMessageText("idp.login.page-privacy", "Henkilötietolain mukainen tietosuojaseloste")</a></li>
+            <li><a target="_blank" href="https://testi.apro.tunnistus.fi/info/palaute/">#springMessageText("idp.login.page-feedback", "Ilmoita virheestä tai anna palautetta")</a></li>
                     </ul>
                 </div>
             </div>
         </footer>
-        <script src="https://vagrant.local/idp/js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="https://vagrant.local/idp/js/plugins.js"></script>
-        <script src="https://vagrant.local/idp/js/main.js"></script>
+        <script src="#springUrl("/js/vendor/jquery-1.11.2.min.js")"></script>
+        <script src="#springUrl("/js/plugins.js")"></script>
+        <script src="#springUrl("/js/main.js")"></script>
 
         #if ($processState and !$errorMessage)
         #set ($link = $flowExecutionUrl + "&_eventId=retry")
