@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext;
+import fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext.ProcessState;
 import net.shibboleth.idp.authn.AbstractValidationAction;
 import net.shibboleth.idp.authn.AuthnEventIds;
 import net.shibboleth.idp.authn.context.AuthenticationContext;
@@ -82,13 +83,22 @@ public class ValidateMobileAuthentication extends AbstractValidationAction {
             handleError(profileRequestContext, authenticationContext, AuthnEventIds.NO_CREDENTIALS,
                     AuthnEventIds.NO_CREDENTIALS);
             return;
+        } else if (StringSupport.trimOrNull(mobCtx.getErrorMessage()) == null
+                && mobCtx.getProcessState() == ProcessState.COMPLETE && !mobCtx.getAttributes().isEmpty()) {
+            log.debug("{} Authentication completed. Building AuthenticationResult for {}", getLogPrefix(),
+                    mobCtx.getMobileNumber());
+            buildAuthenticationResult(profileRequestContext, authenticationContext);
+        } else {
+            handleError(profileRequestContext, authenticationContext, AuthnEventIds.NO_CREDENTIALS,
+                    AuthnEventIds.NO_CREDENTIALS);
+            log.debug("{} Error handling. {} for {}", getLogPrefix(), AuthnEventIds.NO_CREDENTIALS,
+                    mobCtx.getMobileNumber());
+            return;
         }
 
-        log.debug("Building AuthenticationResult for {}", mobCtx.getMobileNumber());
-
-        buildAuthenticationResult(profileRequestContext, authenticationContext);
     }
 
+    /** {@inheritDoc} */
     @Override
     @Nonnull
     protected Subject populateSubject(@Nonnull final Subject subject) {
