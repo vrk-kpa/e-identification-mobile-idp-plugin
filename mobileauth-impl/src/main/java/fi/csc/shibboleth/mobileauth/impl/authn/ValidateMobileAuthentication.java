@@ -62,8 +62,6 @@ public class ValidateMobileAuthentication extends AbstractValidationAction {
 	protected Subject populateSubject(@Nonnull final Subject subject) {
 		if (StringSupport.trimOrNull(mobCtx.getMobileNumber()) != null) {
 			log.debug("{} Populate subject for {}", getLogPrefix(), mobCtx.getMobileNumber());
-			// subject.getPrincipals().add(new
-			// MobileUserPrincipal(mobCtx.getMobileNumber()));
 			subject.getPrincipals().add(new UsernamePrincipal(mobCtx.getMobileNumber()));
 		}
 		return subject;

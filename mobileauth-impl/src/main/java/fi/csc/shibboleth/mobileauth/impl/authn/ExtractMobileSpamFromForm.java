@@ -116,6 +116,7 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
         if (mobileNumber == null || !MobileAuthenticationUtils.validatePhoneNumber(mobileNumber)) {
             log.info("{} Empty mobileNumber in request or number is invalid - {}", getLogPrefix(), mobileNumber);
             ActionSupport.buildEvent(profileRequestContext, AuthnEventIds.INVALID_CREDENTIALS);
+            mobCtx.setErrorMessage("InvalidPhoneNumber");
             return;
         }
 
@@ -136,6 +137,7 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
                 /* TODO: add some kind of errorMessage */
                 log.info("{} SpamCode is invalid - [{}]", getLogPrefix(), spamCode);
                 ActionSupport.buildEvent(profileRequestContext, AuthnEventIds.INVALID_CREDENTIALS);
+                mobCtx.setErrorMessage("InvalidSpamCode");
                 return;
             }
 
