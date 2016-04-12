@@ -33,32 +33,34 @@ import net.shibboleth.utilities.java.support.logic.Constraint;
 import net.shibboleth.utilities.java.support.primitive.StringSupport;
 
 public class MobileUserPrincipal implements CloneablePrincipal {
-	
-	/** The mobile number */
-	@Nonnull @NotEmpty private String mobileNumber;
 
-	/*
-	 * Constructor
-	 */
-	public MobileUserPrincipal(@Nonnull @NotEmpty final String mobile) {
-		this.mobileNumber = Constraint.isNotNull(StringSupport.trimOrNull(mobile)
-				, "MobileNumber cannot be null or empty");
-	}
+    /** The mobile number */
+    @Nonnull
+    @NotEmpty
+    private String mobileNumber;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getName() {
-		return mobileNumber;
-	}
-	
-	/** {@inheritDoc} */
+    /*
+     * Constructor
+     */
+    public MobileUserPrincipal(@Nonnull @NotEmpty final String mobile) {
+        this.mobileNumber = Constraint.isNotNull(StringSupport.trimOrNull(mobile),
+                "MobileNumber cannot be null or empty");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return mobileNumber;
+    }
+
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return mobileNumber.hashCode();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object other) {
@@ -76,13 +78,13 @@ public class MobileUserPrincipal implements CloneablePrincipal {
 
         return false;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).add("mobileNumber", mobileNumber).toString();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public MobileUserPrincipal clone() throws CloneNotSupportedException {
@@ -90,6 +92,5 @@ public class MobileUserPrincipal implements CloneablePrincipal {
         copy.mobileNumber = mobileNumber;
         return copy;
     }
-
 
 }
