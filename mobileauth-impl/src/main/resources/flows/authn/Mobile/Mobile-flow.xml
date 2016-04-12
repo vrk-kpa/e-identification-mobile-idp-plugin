@@ -11,12 +11,12 @@
 
 		<transition on="proceed" to="SelectLanguage" />
 	</action-state>
-	
+
 	<action-state id="SelectLanguage">
-	    <evaluate expression="ExtractLanguageCodeFromAuthnRequest" />
-        <evaluate expression="'proceed'" />
-        
-        <transition on="proceed" to="DisplayPhoneNumberSpamCode" />
+		<evaluate expression="ExtractLanguageCodeFromAuthnRequest" />
+		<evaluate expression="'proceed'" />
+
+		<transition on="proceed" to="DisplayPhoneNumberSpamCode" />
 	</action-state>
 
 	<view-state id="DisplayPhoneNumberSpamCode" view="mobile">

@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 import net.shibboleth.utilities.java.support.primitive.StringSupport;
 
 /**
+ * Supporting static methods for Mobile authentication
  * 
  * @author korteke
  *
@@ -90,6 +91,7 @@ public class MobileAuthenticationUtils {
      * @return lang 
      */
     public static String unMarshallLanguage(Element xmlElement, String ns, String tag) {
+        //TODO: Replace this with the "real" Marshalers & Unmarhalers
 
         // Defaulting to finnish language
         String lang = null;

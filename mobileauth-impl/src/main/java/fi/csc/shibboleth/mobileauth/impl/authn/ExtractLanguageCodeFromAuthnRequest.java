@@ -21,6 +21,12 @@ import net.shibboleth.idp.profile.ActionSupport;
 import net.shibboleth.utilities.java.support.annotation.constraint.NotEmpty;
 import net.shibboleth.utilities.java.support.component.ComponentSupport;
 
+/**
+ * This action will extract language code from the {@link AuthenticationContext}
+ * 
+ * @author korteke
+ *
+ */
 @SuppressWarnings("rawtypes")
 public class ExtractLanguageCodeFromAuthnRequest extends AbstractProfileAction {
 
@@ -46,6 +52,7 @@ public class ExtractLanguageCodeFromAuthnRequest extends AbstractProfileAction {
         langTag = fieldName;
     }
 
+    /** {@inheritDoc} */
     @Override
     protected boolean doPreExecute(ProfileRequestContext profileRequestContext) {
         log.debug("Entering ExtractLanguageCodeFromAuthnRequest doPreExecute");
@@ -60,6 +67,7 @@ public class ExtractLanguageCodeFromAuthnRequest extends AbstractProfileAction {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void doExecute(@Nonnull final ProfileRequestContext profileRequestContext) {
 

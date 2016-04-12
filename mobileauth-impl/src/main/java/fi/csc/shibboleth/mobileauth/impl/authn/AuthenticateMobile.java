@@ -47,13 +47,15 @@ import net.shibboleth.utilities.java.support.component.ComponentSupport;
 import net.shibboleth.utilities.java.support.logic.Constraint;
 import net.shibboleth.utilities.java.support.primitive.StringSupport;
 
+/**
+ * This action will send authentication request to the backend service
+ * 
+ * @author korteke
+ *
+ */
 @SuppressWarnings("rawtypes")
 public class AuthenticateMobile extends AbstractProfileAction {
-
-    public static final String EVENTID_GATEWAY_ERROR = "GatewayError";
-
-    public static final String EVENTID_CHECK_INPUT = "CheckInput";
-
+    
     /** Class logger. */
     @Nonnull
     private final static Logger log = LoggerFactory.getLogger(AuthenticateMobile.class);
@@ -168,12 +170,7 @@ public class AuthenticateMobile extends AbstractProfileAction {
                 "trustStorePassword field name cannot be null or empty.");
     }
 
-    /**
-     * Default constructor
-     */
-    public AuthenticateMobile() {
-    }
-
+    /** {@inheritDoc} */
     protected boolean doPreExecute(@Nonnull final ProfileRequestContext profileRequestContext,
             @Nonnull final AuthenticationContext authenticationContext) {
 
@@ -194,6 +191,7 @@ public class AuthenticateMobile extends AbstractProfileAction {
         return true;
     }
 
+    /** {@inheritDoc} */
     protected Event doExecute(@Nonnull final RequestContext springRequestContext,
             @Nonnull final ProfileRequestContext profileRequestContext) {
         log.debug("{} Entering - doExecute", getLogPrefix());
@@ -288,6 +286,13 @@ public class AuthenticateMobile extends AbstractProfileAction {
         return Events.success.event(this);
     }
 
+    /**
+     * This method will create CloseableHttpClient with client certificate authentication
+     * 
+     * @return CloseableHttpClient
+     * @throws KeyStoreException
+     * @throws RuntimeException
+     */
     private CloseableHttpClient createHttpClient() throws KeyStoreException, RuntimeException {
 
         KeyStore trustStore = KeyStore.getInstance(trustStoreType);

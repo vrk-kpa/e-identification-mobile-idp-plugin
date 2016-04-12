@@ -40,12 +40,6 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
     private String spamCodeField;
 
     /**
-     * Default constructor.
-     */
-    public ExtractMobileSpamFromForm() {
-    }
-
-    /**
      * Inject mobilenumber to the local variable.
      *
      * @param fieldName
@@ -71,6 +65,7 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
                 "Spamcode field name cannot be null or empty.");
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     protected boolean doPreExecute(@Nonnull final ProfileRequestContext profileRequestContext,
@@ -89,6 +84,7 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
         return true;
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void doExecute(@Nonnull final ProfileRequestContext profileRequestContext,
             @Nonnull final AuthenticationContext authenticationContext) {
@@ -109,10 +105,6 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
 
         final String mobileNumber = request.getParameter(StringSupport.trim(mobileNumberField));
 
-        /*
-         * TODO, fix invalid phonenumber handling --> return to the view Create
-         * errorMessage..
-         */
         if (mobileNumber == null || !MobileAuthenticationUtils.validatePhoneNumber(mobileNumber)) {
             log.info("{} Empty mobileNumber in request or number is invalid - {}", getLogPrefix(), mobileNumber);
             ActionSupport.buildEvent(profileRequestContext, AuthnEventIds.INVALID_CREDENTIALS);
@@ -134,7 +126,6 @@ public class ExtractMobileSpamFromForm extends AbstractExtractionAction {
                 mobCtx.setSpamCode(spamCode);
 
             } else {
-                /* TODO: add some kind of errorMessage */
                 log.info("{} SpamCode is invalid - [{}]", getLogPrefix(), spamCode);
                 ActionSupport.buildEvent(profileRequestContext, AuthnEventIds.INVALID_CREDENTIALS);
                 mobCtx.setErrorMessage("InvalidSpamCode");

@@ -46,6 +46,10 @@ import net.shibboleth.utilities.java.support.component.ComponentSupport;
 import net.shibboleth.utilities.java.support.logic.Constraint;
 import net.shibboleth.utilities.java.support.primitive.StringSupport;
 
+/**
+ * @author korteke
+ *
+ */
 @SuppressWarnings("rawtypes")
 public class ResolveAuthenticationStatus extends AbstractProfileAction {
 
@@ -184,6 +188,7 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void doExecute(@Nonnull final ProfileRequestContext profileRequestContext) {
 
@@ -201,6 +206,13 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
         }
     }
 
+    /**
+     * Fetch status update from the backend
+     * 
+     * @param conversationKey
+     * @param profileCtx
+     * @param mobCtx
+     */
     private void getStatusUpdate(String conversationKey, ProfileRequestContext profileCtx, MobileContext mobCtx) {
         log.debug("{} Getting statusUpdate for convKey {}", getLogPrefix(), conversationKey);
 
@@ -280,7 +292,6 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
 
             } else {
                 mobCtx.setProcessState(ProcessState.ERROR);
-                // TODO: multilingual error message
                 log.error("{} Unexpected status code {} from REST gateway", getLogPrefix(), statusCode);
                 ActionSupport.buildEvent(profileCtx, EVENTID_GATEWAY_ERROR);
                 return;
@@ -296,6 +307,14 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
 
     }
 
+    
+    /**
+     * This method will create CloseableHttpClient with client certificate authentication
+     * 
+     * @return CloseableHttpClient
+     * @throws KeyStoreException
+     * @throws RuntimeException
+     */
     private CloseableHttpClient createHttpClient() throws KeyStoreException, RuntimeException {
 
         KeyStore trustStore = KeyStore.getInstance(trustStoreType);

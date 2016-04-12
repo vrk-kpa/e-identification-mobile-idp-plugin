@@ -11,6 +11,12 @@ import org.opensaml.messaging.context.BaseContext;
 import net.shibboleth.utilities.java.support.annotation.constraint.NotEmpty;
 import net.shibboleth.utilities.java.support.primitive.StringSupport;
 
+/**
+ * Basic context that holds user related attributes
+ * 
+ * @author korteke
+ *
+ */
 public class MobileContext extends BaseContext {
 	
 	public static enum ProcessState {
