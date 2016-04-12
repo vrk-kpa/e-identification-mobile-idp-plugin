@@ -51,6 +51,7 @@ public class ValidateMobileAuthentication extends AbstractValidationAction {
 					AuthnEventIds.NO_CREDENTIALS);
 			return;
 		}
+        
 		log.debug("Building AuthenticationResult for {}", mobCtx.getMobileNumber());
 		
 		buildAuthenticationResult(profileRequestContext, authenticationContext);

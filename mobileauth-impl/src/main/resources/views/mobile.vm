@@ -1,11 +1,10 @@
 #set ($rpContext = $profileRequestContext.getSubcontext('net.shibboleth.idp.profile.context.RelyingPartyContext'))
 #set ($username = $authenticationContext.getSubcontext('net.shibboleth.idp.authn.context.UsernamePasswordContext', true).getUsername())
-#set ($passwordEnabled = false)
-#if (!$passwordPrincipals or $passwordPrincipals.isEmpty() or $authenticationContext.isAcceptable($passwordPrincipals))
-  #set ($passwordEnabled = true)
-#end
+#set ($mobileContext = $authenticationContext.getSubcontext('fi.csc.shibboleth.mobileauth.api.authn.context.MobileContext'))
+#set ($errorMessage = $mobileContext.getErrorMessage())
+#set ($idpMesPrefix = "idp.login.error.")
+#set ($errMessType = $idpMesPrefix+$errorMessage.replace(" ", "").replace(".",""))
 
-##
 <!--[if lte IE 7]> <html lang="fi" itemtype="http://schema.org/WebPage" data-text-size="3" class="no-js text-size-3 lte_ie9 lte_ie8 lte7"> <![endif]-->
 <!--[if IE 8]> <html lang="fi" itemtype="http://schema.org/WebPage" data-text-size="3" class="no-js text-size-3 lte_ie9 lte_ie8 ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="fi" itemtype="http://schema.org/WebPage" data-text-size="3" class="no-js text-size-3 lte_ie9 ie9"> <![endif]-->
@@ -85,6 +84,9 @@
                             <div class="form-group">
                                 <label for="telephone" class="form-label">#springMessageText("idp.login.mobilenumber", "Puhelinnumero <small>(esim. 04012345678)</small>")</label>
                                 <input type="text" class="form-element form-field" id="j_mobileNumber" name="j_mobileNumber">
+                                #if ($errorMessage)
+                                  <div class="validation-message" aria-live="polite">#springMessageText("$errMessType", "Virheellinen puhelinnumero tai häirinnän estokoodi")</div>
+                                #end
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-5">

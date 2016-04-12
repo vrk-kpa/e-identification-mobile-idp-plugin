@@ -198,13 +198,11 @@ public class AuthenticateMobile extends AbstractProfileAction {
             @Nonnull final ProfileRequestContext profileRequestContext) {
         log.debug("{} Entering - doExecute", getLogPrefix());
 
-        // final MobileContext mobCtx =
-        // authenticationContext.getSubcontext(MobileContext.class, false);
         final MobileContext mobCtx = profileRequestContext.getSubcontext(AuthenticationContext.class)
                 .getSubcontext(MobileContext.class);
         final String mobileNumber = StringSupport.trimOrNull(mobCtx.getMobileNumber());
         final String spamCode = StringSupport.trimOrNull(mobCtx.getSpamCode());
-
+        
         final CloseableHttpClient httpClient;
         try {
             log.debug("{} Trying to create httpClient", getLogPrefix());
@@ -235,19 +233,26 @@ public class AuthenticateMobile extends AbstractProfileAction {
 
             int statusCode = response.getStatusLine().getStatusCode();
             log.debug("{} HTTPStatusCode {}", getLogPrefix(), statusCode);
+            
+            entity = response.getEntity();
+
+            final String json = EntityUtils.toString(entity, "UTF-8");
+
+            final StatusResponse status = gson.fromJson(json, StatusResponse.class);
+            
+            if (status.getErrorMessage() != null) {
+                log.debug("{} Setting error message", getLogPrefix());
+                mobCtx.setErrorMessage(status.getErrorMessage());
+            }
+            
+            response.close();
 
             if (statusCode == HttpStatus.SC_OK) {
-
-                entity = response.getEntity();
-
-                final String json = EntityUtils.toString(entity, "UTF-8");
-
-                final StatusResponse status = gson.fromJson(json, StatusResponse.class);
 
                 log.debug("{} Gson commKey: {}", getLogPrefix(), status.getCommunicationDataKey());
                 log.debug("{} Gson EventID: {}", getLogPrefix(), status.getEventId());
                 log.debug("{} Gson ErrorMessage: {}", getLogPrefix(), status.getErrorMessage());
-                response.close();
+
 
                 mobCtx.setProcessState(ProcessState.IN_PROCESS);
                 mobCtx.setConversationKey(status.getCommunicationDataKey());
