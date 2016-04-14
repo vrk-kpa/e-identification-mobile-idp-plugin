@@ -220,6 +220,7 @@ public class ResolveAuthenticationStatus extends AbstractProfileAction {
         final MobileContext mobCtx = profileRequestContext.getSubcontext(AuthenticationContext.class)
                 .getSubcontext(MobileContext.class, false);
 
+        
         try {
             log.debug("Get authentication status for {} with convKey {}", mobCtx.getMobileNumber(),
                     mobCtx.getConversationKey());
