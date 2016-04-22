@@ -78,6 +78,10 @@ import net.shibboleth.utilities.java.support.primitive.StringSupport;
  */
 @SuppressWarnings("rawtypes")
 public class AuthenticateMobile extends AbstractProfileAction {
+	
+	public static final String REST_PARAM_MOBILENUMBER = "mobileNumber";
+	
+	public static final String REST_PARAM_NO_SPAM_CODE = "noSpamCode";
     
     /** Class logger. */
     @Nonnull
@@ -239,9 +243,9 @@ public class AuthenticateMobile extends AbstractProfileAction {
             final URIBuilder builder = new URIBuilder();
             // TODO: remove hard-codings
             builder.setScheme("https").setHost(authServer).setPort(authPort).setPath(authPath)
-                    .setParameter("mobileNumber", mobileNumber);
+                    .setParameter(REST_PARAM_MOBILENUMBER, mobileNumber);
             if (spamCode != null) {
-                builder.setParameter("spamCode", spamCode);
+                builder.setParameter(REST_PARAM_NO_SPAM_CODE, spamCode);
             }
 
             final URI url = builder.build();
