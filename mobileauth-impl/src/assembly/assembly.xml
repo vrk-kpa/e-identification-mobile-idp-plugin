@@ -27,6 +27,11 @@
 			<useDefaultExcludes>true</useDefaultExcludes>
 		</fileSet>
 		<fileSet>
+			<directory>${project.basedir}/src/main/resources/messages/</directory>
+			<outputDirectory>messages</outputDirectory>
+			<useDefaultExcludes>true</useDefaultExcludes>
+		</fileSet>
+		<fileSet>
 			<directory>${project.build.directory}</directory>
 			<outputDirectory>edit-webapp/WEB-INF/lib</outputDirectory>
 			<includes>
