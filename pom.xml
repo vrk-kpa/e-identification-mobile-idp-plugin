@@ -338,14 +338,4 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	<organization>
-		<name>CSC - IT Center for Science</name>
-		<url>http://www.csc.fi</url>
-	</organization>
-	<scm>
-		<url>https://github.com/CSC-IT-Center-for-Science/shibboleth-idp-mobile-auth</url>
-		<connection>scm:git:git@github.com:CSC-IT-Center-for-Science/shibboleth-idp-mobile-auth.git</connection>
-		<developerConnection>scm:git:git@github.com:CSC-IT-Center-for-Science/shibboleth-idp-mobile-auth.git</developerConnection>
-		<tag>HEAD</tag>
-	</scm>
 </project>
