@@ -86,22 +86,22 @@ public class MobileAuthenticationUtils {
     }
 
     /**
-     * Validates spam prevention code that user has inputted to the form
+     * Validates spam prevention code that user has provided.
+     * This is a general sanity check: no whitespace, 1-30 word characters.
+     * Further checking done by ETSI-provider.
      * 
      * @param spam
      *            String spam prevention code that user has inputted to the form
      * @return true if spam code is valid
      */
     public static boolean validateSpamPreventionCode(String spam) {
-        String pattern = "^[a-zA-Z]\\w{3,7}$";
-
+        String pattern = "^\\w{1,30}$";
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(spam);
 
         if (m.find()) {
             return true;
         }
-
         return false;
     }
 
