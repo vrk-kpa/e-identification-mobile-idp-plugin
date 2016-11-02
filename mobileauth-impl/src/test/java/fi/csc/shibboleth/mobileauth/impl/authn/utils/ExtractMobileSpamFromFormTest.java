@@ -115,8 +115,8 @@ public class ExtractMobileSpamFromFormTest extends PopulateAuthenticationContext
     @Test
     public void testFail() throws ComponentInitializationException {
         action.setHttpServletRequest(new MockHttpServletRequest());
-        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter("j_mobileNumber", invalidMobile);
-        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter("j_spamcode", invalidSpamCodeWithWhiteSpace);
+        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter(mobileNumberField, invalidMobile);
+        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter(spamCodeField, invalidSpamCodeWithWhiteSpace);
         action.initialize();
         prc.getSubcontext(AuthenticationContext.class, false).setAttemptedFlow(authenticationFlows.get(0));
         final Event event = action.execute(src);
@@ -126,8 +126,8 @@ public class ExtractMobileSpamFromFormTest extends PopulateAuthenticationContext
     @Test
     public void testSpamCodeWithWhiteSpace() throws ComponentInitializationException {
         action.setHttpServletRequest(new MockHttpServletRequest());
-        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter("j_mobileNumber", expectedMobile);
-        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter("j_spamcode", invalidSpamCodeWithWhiteSpace);
+        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter(mobileNumberField, expectedMobile);
+        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter(spamCodeField, invalidSpamCodeWithWhiteSpace);
         action.initialize();
         prc.getSubcontext(AuthenticationContext.class, false).setAttemptedFlow(authenticationFlows.get(0));
         final Event event = action.execute(src);
@@ -137,8 +137,8 @@ public class ExtractMobileSpamFromFormTest extends PopulateAuthenticationContext
     @Test
     public void testSpamCodeTooLong() throws ComponentInitializationException {
         action.setHttpServletRequest(new MockHttpServletRequest());
-        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter("j_mobileNumber", expectedMobile);
-        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter("j_spamcode", invalidSpamCodeTooLong);
+        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter(mobileNumberField, expectedMobile);
+        ((MockHttpServletRequest) action.getHttpServletRequest()).addParameter(spamCodeField, invalidSpamCodeTooLong);
         action.initialize();
         prc.getSubcontext(AuthenticationContext.class, false).setAttemptedFlow(authenticationFlows.get(0));
         final Event event = action.execute(src);
