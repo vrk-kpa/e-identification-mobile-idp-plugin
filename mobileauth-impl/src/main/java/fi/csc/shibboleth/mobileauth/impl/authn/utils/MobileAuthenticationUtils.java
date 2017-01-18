@@ -43,21 +43,23 @@ public class MobileAuthenticationUtils {
     private final static String NUM_PREFIX = "+358";
     private final static List<String> LANGS = Arrays.asList("fi", "sv", "en");
     private final static String DEFAULT_LANG = "fi";
+    // starts with one "0", seven digits
+    private static Pattern phoneNumberPattern = Pattern.compile("^0[1-9](?:[0-9] ?){5,13}$");
+    private static Pattern internationalPhoneNumberPattern = Pattern.compile("^\\+(?:[0-9]){9,17}$");
 
     /**
      * Validate phoneNumber against regular expression
-     * 
+     * according to https://en.wikipedia.org/wiki/E.164
+     *
      * @param number
      *            String phoneNumber that user has inputted to the form
      * @return true if phone number is valid
      */
     public static boolean validatePhoneNumber(String number) {
-        String pattern = "^(\\+|0)(?:[0-9] ?){6,14}[0-9]$";
+        Matcher phoneNumberMatcher = phoneNumberPattern.matcher(number);
+        Matcher internationalPhoneNumberMatcher = internationalPhoneNumberPattern.matcher(number);
 
-        Pattern p = Pattern.compile(pattern);
-        Matcher m = p.matcher(number);
-
-        if (m.find()) {
+        if (phoneNumberMatcher.find() || internationalPhoneNumberMatcher.find()) {
             return true;
         }
         return false;
