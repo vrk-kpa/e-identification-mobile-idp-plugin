@@ -130,9 +130,12 @@
                     </div>
                     #springMessageText("idp.login.page-text4", "")
                     <ul class="link-list">
-            <li><a target="_blank" href="https://tunnistaminen.suomi.fi/info/tietoapalvelusta/">#springMessageText("idp.login.page-info", "Tietoa palvelusta")</a></li>
-            <li><a target="_blank" href="https://tunnistaminen.suomi.fi/info/tietosuojaseloste/">#springMessageText("idp.login.page-privacy", "Henkilötietolain mukainen tietosuojaseloste")</a></li>
-            <li><a target="_blank" href="https://tunnistaminen.suomi.fi/info/palaute/">#springMessageText("idp.login.page-feedback", "Ilmoita virheestä tai anna palautetta")</a></li>
+                        <li><a target="_blank" href="/sivut/info/tietoapalvelusta/">#springMessageText("idp.login.page-info", "Tietoa palvelusta")</a>
+                        </li>
+                        <li><a target="_blank" href="/sivut/info/tietosuojaseloste/">#springMessageText("idp.login.page-privacy", "Henkilötietolain mukainen tietosuojaseloste")</a>
+                        </li>
+                        <li><a target="_blank" href="/sivut/info/palaute/">#springMessageText("idp.login.page-feedback", "Ilmoita virheestä tai anna palautetta")</a>
+                        </li>
                     </ul>
                 </div>
             </div>
