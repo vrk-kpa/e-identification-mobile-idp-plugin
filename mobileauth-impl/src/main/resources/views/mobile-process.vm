@@ -101,15 +101,17 @@ function clickAndDisable(link)
             <div class="container">
                 <div class="row">
                     <div id="footer-logo">
-                        <img src="#springUrl("/img/footer-logo2.svg")" alt="#springMessageText("idp.login.page-vrk-logo", "Väestörekisterikeskus logo")">
+                        <img src="#springUrl('/img/footer-logo2.svg')" alt="#springMessageText('idp.login.page-vrk-logo', 'Väestörekisterikeskus logo')">
                     </div>
                     #springMessageText("idp.login.page-text4", "")
                     <ul class="link-list">
                         <li><a target="_blank" href="/sivut/info/tietoapalvelusta/">#springMessageText("idp.login.page-info", "Tietoa palvelusta")</a>
                         </li>
+                        <li><a target="_blank" href="/sivut/info/palaute/">#springMessageText("idp.login.page-feedback", "Anna palautetta")</a>
+                        </li>
                         <li><a target="_blank" href="/sivut/info/tietosuojaseloste/">#springMessageText("idp.login.page-privacy", "Henkilötietolain mukainen tietosuojaseloste")</a>
                         </li>
-                        <li><a target="_blank" href="/sivut/info/palaute/">#springMessageText("idp.login.page-feedback", "Ilmoita virheestä tai anna palautetta")</a>
+                        <li><a target="_blank" href="/sivut/info/virhepalaute/">#springMessageText("idp.login.page-errorfeedback", "Ilmoita virheestä")</a>
                         </li>
                     </ul>
                 </div>
