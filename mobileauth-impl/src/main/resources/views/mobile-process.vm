@@ -96,71 +96,82 @@ function clickAndDisable(link)
                     </div>
                 </div>
             </div>
-        </main>
-        <footer id="page-footer" role=”contentinfo”>
-            <div class="container">
-                <div class="row">
-                    <div id="footer-logo">
-                        <img src="#springUrl('/img/footer-logo2.svg')" alt="#springMessageText('idp.login.page-vrk-logo', 'Väestörekisterikeskus logo')">
-                    </div>
-                    #springMessageText("idp.login.page-text4", "")
-                    <ul class="link-list">
-                        <li><a target="_blank" href="/sivut/info/tietoapalvelusta/">#springMessageText("idp.login.page-info", "Tietoa palvelusta")</a>
-                        </li>
-                        <li><a target="_blank" href="/sivut/info/palaute/">#springMessageText("idp.login.page-feedback", "Anna palautetta")</a>
-                        </li>
-                        <li><a target="_blank" href="/sivut/info/tietosuojaseloste/">#springMessageText("idp.login.page-privacy", "Henkilötietolain mukainen tietosuojaseloste")</a>
-                        </li>
-                        <li><a target="_blank" href="/sivut/info/virhepalaute/">#springMessageText("idp.login.page-errorfeedback", "Ilmoita virheestä")</a>
-                        </li>
-                    </ul>
-                </div>
+</main>
+<footer id="page-footer" role=”contentinfo”>
+    <div class="container">
+        <div class="row">
+            <div id="footer-logo">
+                <img src="#springUrl('/img/footer-logo2.svg')" alt="#springMessageText('idp.login.page-vrk-logo', 'Väestörekisterikeskus logo')">
             </div>
-        </footer>
-        <script src="#springUrl("/js/vendor/jquery-1.11.2.min.js")"></script>
-        <script src="#springUrl("/js/plugins.js")"></script>
-        <script src="#springUrl("/js/main.js")"></script>
+            <p>
+                #springMessageText("idp.login.page-text4", "")
+                <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
+            </p>
+            <ul class="link-list">
+                <li>
+                    <a target="_blank" href="/sivut/info/tietoapalvelusta/">#springMessageText("idp.login.page-info", "Tietoa palvelusta")</a>
+                    <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
+                </li>
+                <li>
+                    <a target="_blank" href="/sivut/info/palaute/">#springMessageText("idp.login.page-feedback", "Anna palautetta")</a>
+                    <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
+                </li>
+                <li>
+                    <a target="_blank" href="/sivut/info/tietosuojaseloste/">#springMessageText("idp.login.page-privacy", "Henkilötietolain mukainen tietosuojaseloste")</a>
+                    <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
+                </li>
+                <li>
+                    <a target="_blank" href="/sivut/info/virhepalaute/">#springMessageText("idp.login.page-errorfeedback", "Ilmoita virheestä")</a>
+                    <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<script src="#springUrl("/js/vendor/jquery-1.11.2.min.js")"></script>
+<script src="#springUrl("/js/plugins.js")"></script>
+<script src="#springUrl("/js/main.js")"></script>
 
-        #if ($processState and !$errorMessage)
-        #set ($link = $flowExecutionUrl + "&_eventId=retry")
+#if ($processState and !$errorMessage)
+#set ($link = $flowExecutionUrl + "&_eventId=retry")
 
-        <script>
-         function rec_ajax(status_url) {
-        console.log("Calling rec");
-        var jsonMimeType = "application/json;charset=UTF-8";
+<script>
+ function rec_ajax(status_url) {
+console.log("Calling rec");
+var jsonMimeType = "application/json;charset=UTF-8";
 
-        $.ajax({
-                type:"GET",
-                async:"false",
-                url: status_url,
-                beforeSend: function(x) {
-                  if(x && x.overrideMimeType) {
-                  x.overrideMimeType(jsonMimeType);
-                  }
-                },
-                dataType:"json",
-                success: function(data)
-                {
-                    console.log(data);
+$.ajax({
+        type:"GET",
+        async:"false",
+        url: status_url,
+        beforeSend: function(x) {
+          if(x && x.overrideMimeType) {
+          x.overrideMimeType(jsonMimeType);
+          }
+        },
+        dataType:"json",
+        success: function(data)
+        {
+            console.log(data);
 
-                    var n = data.status.link.indexOf("SSO");
-                    console.log("LINK: " + data.status.link);
-                    urli = data.status.link.substring(n);
-                    console.log("URL: " + urli);
-                    if(data.status.state !== "IN_PROCESS") location.href = urli;
-                    document.getElementById("cancelDiv").innerHTML = "<br/><a id=\"cancelLink\" href=\"" + urli.replace("IN_PROCESS", "AuthenticationException") + "\" onclick=\"clickAndDisable(this);\" class=\"go-back\">#springMessageText("idp.login.page-cancel", "Peruuta ja palaa tunnistusvälineen valintaan")</a><br>";
-                    setTimeout(function(){
-                      rec_ajax(urli);
-                    }, 3000);
+            var n = data.status.link.indexOf("SSO");
+            console.log("LINK: " + data.status.link);
+            urli = data.status.link.substring(n);
+            console.log("URL: " + urli);
+            if(data.status.state !== "IN_PROCESS") location.href = urli;
+            document.getElementById("cancelDiv").innerHTML = "<br/><a id=\"cancelLink\" href=\"" + urli.replace("IN_PROCESS", "AuthenticationException") + "\" onclick=\"clickAndDisable(this);\" class=\"go-back\">#springMessageText("idp.login.page-cancel", "Peruuta ja palaa tunnistusvälineen valintaan")</a><br>";
+            setTimeout(function(){
+              rec_ajax(urli);
+            }, 3000);
 
-                },
-                error: function (request, status, error) {
-                }
-            });
-         }
+        },
+        error: function (request, status, error) {
+        }
+    });
+ }
 
-        $(document).ready(rec_ajax("$link"));
-        </script>
-        #end
-    </body>
+$(document).ready(rec_ajax("$link"));
+</script>
+#end
+</body>
 </html>
