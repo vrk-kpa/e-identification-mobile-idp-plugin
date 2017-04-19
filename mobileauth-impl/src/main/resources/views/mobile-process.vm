@@ -5,132 +5,88 @@
 #set ($processState = $mobileContext.getProcessState())
 #set ($errorMessage = $mobileContext.getErrorMessage())
 ##
-<!--[if lte IE 7]> <html lang="fi" itemtype="http://schema.org/WebPage" data-text-size="3" class="no-js text-size-3 lte_ie9 lte_ie8 lte7"> <![endif]-->
-<!--[if IE 8]> <html lang="fi" itemtype="http://schema.org/WebPage" data-text-size="3" class="no-js text-size-3 lte_ie9 lte_ie8 ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="fi" itemtype="http://schema.org/WebPage" data-text-size="3" class="no-js text-size-3 lte_ie9 ie9"> <![endif]-->
-<!--[if gt IE 9]><!--><html lang="fi" itemtype="http://schema.org/WebPage" data-text-size="3" class="no-js text-size-3"><!--<![endif]-->
+<!--[if lte IE 7]> <html lang="fi" itemtype="http://schema.org/WebPage" class="no-js lte_ie9 lte_ie8 lte7"> <![endif]-->
+<!--[if IE 8]> <html lang="fi" itemtype="http://schema.org/WebPage" class="no-js lte_ie9 lte_ie8 ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="fi" itemtype="http://schema.org/WebPage" class="no-js lte_ie9 ie9"> <![endif]-->
+<!--[if gt IE 9]><!--><html lang="fi" itemtype="http://schema.org/WebPage" class="no-js"><!--<![endif]-->
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>#springMessageText("idp.login.page-title", "Suomi.fi-tunnistaminen")</title>
+    <title data-i18n="mobiilivarmenne__tunnistaudu_matkapuhelimimella">Tunnistaudu matkapuhelimella</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <meta http-equiv="Cache-Control" content="no-cache, no-store" />
-    <link rel="stylesheet" href="#springUrl("/stylesheets/style.css")">
-    <script src="#springUrl("/js/vendor/modernizr-2.8.3.min.js")"></script>
-    <script src="#springUrl("/js/vendor/modernizr-2.8.3.min.js")"></script>
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="/resources/stylesheets/style.css">
+    <script src="/resources/js/vendor/modernizr-2.8.3.min.js"></script>
         <!--[if lt IE 9]>
-            <script src="#springUrl("/js/vendor/respond.js")"></script>
+            <script src="/resources/js/vendor/respond.js"></script>
             <![endif]-->
     <script type="text/javascript">
-function clickAndDisable(link) 
-{
-    link.onclick = function(event) 
-    {
-        event.preventDefault();
-    }
-}
+      function clickAndDisable(link) {
+          link.onclick = function(event) {
+              event.preventDefault();
+          }
+      }
     </script>
 </head>
 <body id="identification-service" class="txlive">
-<header id="page-header" role="banner">
-    <div id="site-options">
-        <div class="container">
-            <ul class="language-selection">
-            </ul>
-
-            <ul class="adjust-font-size" aria-hidden="true">
-                <li><button title="#springMessageText("idp.login.decrease-font-size", "Pienennä tekstikokoa")" class="decrease-font-size">A-</button></li>
-                <li><button title="#springMessageText("idp.login.increase-font-size", "Suurenna tekstikokoa")" class="increase-font-size">A+</button></li>
-            </ul>
-        </div>
-    </div>
-    <div id="header-content" class="container">
-        <div class="header-row top-row">
-            <div class="container">
-                <div class="centered">
-
-                    <div class="logo-row">
-                        <h1 class="site-logo">
-                            #springMessageText("idp.login.page-title", "Suomi.fi-tunnistaminen")
-                        </h1>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="header-row" id="main-menu">
-            <div class="container">
-                <div class="header-actions">
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-</header>
+#include("header.html")
 <main id="main" role="main" name="main">
-    <div class="main">
+    <div class="main mobile-idp-page">
         <div class="container">
             <div class="row">
-            </div>
-
-            <p>#springMessageText("idp.login.page-text5", "Matkapuhelimeesi on lähetetty tunnistuspyyntö, jonka tapahtumatunnus on:") </p></p>
+                <p data-i18n="mobiilivarmenne__matkapuhelimeesi_lahetetaan">Matkapuhelimeesi on lähetetty tunnistuspyyntö, jonka tapahtumatunnus on</p>
                 <p class="strong">$eventId</p>
-           #springMessageText("idp.login.page-text6", "")
-                <div class="loader">#springMessageText("idp.login.page-text7", "Haetaan sisältöä...")</div>
+                <p data-i18n="mobiilivarmenne__jatka_tunnistamista"></p>
+                <ol class="numbered-list strong">
+                    <li data-i18n="mobiilivarmenne__ohjelista_1">Kuittaa tunnistuspyyntö painamalla OK-näppäintä.</li>
+                    <li data-i18n="mobiilivarmenne__ohjelista_2">Tarkista, että tapahtumatunnus on sama kuin yllä.</li>
+                    <li data-i18n="mobiilivarmenne__ohjelista_3">Kuittaa tunnistautuminen painamalla OK-näppäintä.</li>
+                    <li data-i18n="mobiilivarmenne__ohjelista_4">Kirjoita varmenteen tunnusluku-PIN. Paina OK-näppäintä.</li>
+                    <li data-i18n="mobiilivarmenne__ohjelista_5">Odota tunnistautumista.</li>
+                </ol>
+                <button disabled><span class="button-loader"></span><span data-i18n="mobiilivarmenne__odotetaan">Haetaan sisältöä...</span></button>
 
-               <div id="cancelDiv" class="col-xs-12 service-top"><br>
-                 <a id="cancelLink" href="$flowExecutionUrl&_eventId=AuthenticationException" onclick="clickAndDisable(this);" class="go-back">#springMessageText("idp.login.page-cancel", "Peruuta ja palaa tunnistusvälineen valintaan") </a><br>
+                <div id="cancelDiv" class="row">
+                  <a id="cancelLink" class="go-back" href="$flowExecutionUrl&_eventId=AuthenticationException" data-i18n="mobiilivarmenne__palaa_tunnistajan_valintaan" onclick="clickAndDisable(this);">Peruuta ja palaa tunnistusvälineen valintaan</a>
                 </div>
-                    <div class="row">
-                       <h3>#springMessageText("idp.login.page-text2", "Hyvä tietää")</h3>
-                        <div class="col-xs-12 col-md-8">
-                            <div class="text">
-                                #springMessageText("idp.login.page-text3", "")
-                            </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-8">
+                        <div class="sign-in-info">
+                            <p class="small" data-i18n="mobiilivarmenne__tietoa2_puhelinoperaattorisi">Ota yhteyttä puhelinoperaattoriisi jos haluat ottaa mobiilivarmenteen käyttöösi.</p>
                         </div>
                     </div>
                 </div>
             </div>
-</main>
-<footer id="page-footer" role=”contentinfo”>
-    <div class="container">
-        <div class="row">
-            <div id="footer-logo">
-                <img src="#springUrl('/img/footer-logo2.svg')" alt="#springMessageText('idp.login.page-vrk-logo', 'Väestörekisterikeskus logo')">
-            </div>
-            <p>
-                #springMessageText("idp.login.page-text4", "")
-                <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
-            </p>
-            <ul class="link-list">
-                <li>
-                    <a target="_blank" href="/sivut/info/tietoapalvelusta/">#springMessageText("idp.login.page-info", "Tietoa palvelusta")</a>
-                    <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
-                </li>
-                <li>
-                    <a target="_blank" href="/sivut/info/palaute/">#springMessageText("idp.login.page-feedback", "Anna palautetta")</a>
-                    <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
-                </li>
-                <li>
-                    <a target="_blank" href="/sivut/info/tietosuojaseloste/">#springMessageText("idp.login.page-privacy", "Henkilötietolain mukainen tietosuojaseloste")</a>
-                    <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
-                </li>
-                <li>
-                    <a target="_blank" href="/sivut/info/virhepalaute/">#springMessageText("idp.login.page-errorfeedback", "Ilmoita virheestä")</a>
-                    <span class="sr-only">#springMessageText("idp.login.page-link-new-window", "Linkki avautuu uuteen ikkunaan")</span>
-                </li>
-            </ul>
         </div>
     </div>
-</footer>
-<script src="#springUrl("/js/vendor/jquery-1.11.2.min.js")"></script>
-<script src="#springUrl("/js/plugins.js")"></script>
-<script src="#springUrl("/js/main.js")"></script>
+</main>
+#include("footer.html")
+<script src="/resources/js/vendor/jquery-1.11.2.min.js"></script>
+<script src="/resources/js/vendor/js.cookie.js"></script>
+<script src="/resources/js/vendor/i18next.min.js"></script>
+<script src="/resources/js/vendor/jquery-i18next.js"></script>
+<script src="/resources/js/vendor/i18nextXHRBackend.min.js"></script>
+<script src="/resources/js/vendor/domready.js"></script>
+<script src="/resources/js/plugins.js"></script>
+<script src="/resources/js/main.js"></script>
+<script src="/resources/js/idp_localisation.js"></script>
+<script>
+
+    function setLanguage(lang) {
+        idpLocalisation.setUserLanguage(lang);
+        location.reload();
+    }
+
+    domready(function () {
+        var language = idpLocalisation.getLanguage();
+        idpLocalisation.localise(language, '#identification-service', '/static/localisation',
+                'suomifi-tunnistaminen-resource-mobile_page_labels');
+    });
+</script>
 
 #if ($processState and !$errorMessage)
 #set ($link = $flowExecutionUrl + "&_eventId=retry")
@@ -159,7 +115,7 @@ $.ajax({
             urli = data.status.link.substring(n);
             console.log("URL: " + urli);
             if(data.status.state !== "IN_PROCESS") location.href = urli;
-            document.getElementById("cancelDiv").innerHTML = "<br/><a id=\"cancelLink\" href=\"" + urli.replace("IN_PROCESS", "AuthenticationException") + "\" onclick=\"clickAndDisable(this);\" class=\"go-back\">#springMessageText("idp.login.page-cancel", "Peruuta ja palaa tunnistusvälineen valintaan")</a><br>";
+            document.getElementById("cancelDiv").innerHTML = "<a id=\"cancelLink\" href=\"" + urli.replace("IN_PROCESS", "AuthenticationException") + "\" onclick=\"clickAndDisable(this);\" class=\"go-back\">#springMessageText("idp.login.page-cancel", "Palaa tunnistusvälineen valintaan")</a>";
             setTimeout(function(){
               rec_ajax(urli);
             }, 3000);
