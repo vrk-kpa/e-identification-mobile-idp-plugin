@@ -56,7 +56,10 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-8">
                         <div class="sign-in-info">
-                            <p class="small" data-i18n="mobiilivarmenne__tietoa2_puhelinoperaattorisi">Ota yhteyttä puhelinoperaattoriisi jos haluat ottaa mobiilivarmenteen käyttöösi.</p>
+                            <p>
+                              <span data-i18n="mobiilivarmenne__tietoa3_puhelinoperaattorisi"></span>
+                              <a data-i18n="[href]mobiilivarmenne__tietoa3_puhelinoperaattorisi_linkki_url;mobiilivarmenne__tietoa3_puhelinoperaattorisi_linkki"></a>
+                            </p>
                         </div>
                     </div>
                 </div>
