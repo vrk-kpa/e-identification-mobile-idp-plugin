@@ -1,3 +1,6 @@
+# Important
+This repository has been archived, not in active use anymore. Code from this repository has been integrated into the main mobile-idp repository.
+
 # Mobile certificate authentication (FiCom) plugin for Shibboleth IdP v3 - Frontend
 [![MIT](https://img.shields.io/npm/l/express.svg?style=flat-square)](https://opensource.org/licenses/MIT)   
 
